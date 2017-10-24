@@ -1,0 +1,66 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# clusteredinterference
+
+The goal of clusteredinterference is to estimate causal effects from observational study data in the presence of clustered interference.
+
+## Install the package
+
+You'll need to use the `devtools` package to install from GitHub:
+
+```{r, eval = FALSE}
+devtools::install_github("BarkleyBG/clusteredinterference")
+```
+
+
+## Load this package 
+
+```{r}
+library(clusteredinterference)
+```
+
+## A quick data example
+
+```{r}
+library(inferference)
+data("vaccinesim", package = "inferference") 
+head(vaccinesim)
+
+```
+
+## Estimation
+
+Estimation is implemented with one function:
+
+```{r} 
+causal_fx <- policyFX(
+  data = vaccinesim[1:300,],
+  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  alphas = c(.3, .5), 
+  k_samps = 1,
+  verbose = FALSE
+)
+
+```
+
+```{r}
+causal_fx$estimates
+```
+
+## Vignette
+
+The vignette provides more information on the formal arguments.

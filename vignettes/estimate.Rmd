@@ -1,0 +1,117 @@
+---
+title: "Illustration of Estimator"
+author: "Brian G. Barkley"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+First, load this package 
+
+```{r}
+library(clusteredinterference)
+```
+
+Now load a quick data example
+
+```{r}
+library(inferference)
+data("vaccinesim", package = "inferference") 
+head(vaccinesim)
+
+```
+
+## Estimation
+
+Estimation is implemented with one function:
+
+
+
+```{r} 
+type_C <- policyFX(
+  data = vaccinesim[1:300,],
+  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  alphas = c(.3, .5), 
+  k_samps = 1,
+  verbose = FALSE
+)
+
+```
+
+### Necessary arguments
+
+#### `data` 
+
+A `data.frame`. At present, `tibble`s are coerced back to standard `data.frame`s. I also recommend against using `factor`s in the columns.
+
+#### `alphas`
+
+#### `formula`
+
+The formula is the trickiest, and it has plenty of information. It provides:
+
+```{r, eval = FALSE}
+Y | A ~ X1 + X2 + (1|group) | group
+outcome | treatment ~ predictors and random intercept | clustering specification
+```
+
+Note that the middle section is passed to `glmer()` to fit the mixed effects model, so this is how to specify the modeling formula!
+
+```{r, eval = FALSE}
+A ~ X1 + X2 + (1|group)
+```
+### Recommended arguments
+
+#### `k_samps`
+
+### Formal arguments with defaults
+
+#### `verbose = FALSE`
+
+#### `root_options = NULL`
+
+This is for `rootSolve::multiroot()` used in the point estimation procedure. E.g., this will be passed in:
+
+```{r, eval = FALSE}
+root_options = list(atol = 1e-7) 
+```
+
+#### `nAGQ=2`
+
+This is for `lme4::glmer()`. The default in `glmer()` is `nAGQ=1`, which indicates a Laplace approximation to the log-likelihood. Instead, in this package the default is `nAGQ=2`, which indicates that `n=2` Adaptive Gaussian Quadrature points will be used. This is slightly slower but is a more accurate calculation. In limited testing, it seems that `nAGQ=2` was almost as accurate as higher values, so 2 was chosen as the default. See their documentation for more details.
+
+#### `return_matrices = FALSE`
+  
+If TRUE, this will return the "bread" and "meat" matrices in the variance calculations.
+
+
+
+
+### Dots tricks
+
+In the event you're only interested in a subset of contrasts, you can pass a customized grid into the function.
+
+```{r} 
+my_grid <- makeTargetGrid(alphas = c(0.3, 0.5), small_grid = TRUE)
+my_grid <- my_grid[is.na(my_grid$trt), ]
+my_grid
+```
+
+This is available through the dots argument. Note that when supplying a custom `target_grid`, it's not necessary to specify the `alphas` argument, as that is taken directly from `target_grid`.
+
+```{r}
+type_C <- policyFX(
+  data = vaccinesim[1:300,],
+  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  # alphas = c(.3, .5), 
+  target_grid = my_grid,
+  k_samps = 1,
+  verbose = TRUE
+)
+
+```
+
+

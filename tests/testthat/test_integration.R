@@ -1,0 +1,113 @@
+
+
+context('9. Testing equality of entire code.R')
+
+filename <- rprojroot::find_testthat_root_file(
+  "..",  "test_integration.Rdata")
+load(file=filename) ## loads est_args and baseline_effects
+
+set.seed(101010)
+pfx <- do.call( policyFX, args = est_args )
+
+new_ests <- pfx$estimates
+new_ests <- new_ests[,-(8:9)] ##discard the columns for "k" and "estVar"
+old_ests <- baseline_effects$estimates
+
+OE2 <- old_ests[is.na(old_ests$trt),]
+NE2 <- new_ests[is.na(new_ests$trt), ]
+NE2[, -(1:7)]
+
+testthat::test_that(
+  desc = "Whole estimation is identical",
+  testthat::expect_equal(
+    object =  OE2,
+    expected = NE2,
+    tolerance = 1e-9,
+    check.attributes = FALSE
+  )
+)
+
+
+
+testthat::test_that(
+  desc = "Target ests are identical",
+  testthat::expect_equal(
+    object =  old_ests$estimate,
+    expected = new_ests$estimate,
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+
+testthat::test_that(
+  desc = "Target SEs are identical",
+  testthat::expect_equal(
+    object =  old_ests$se,
+    expected = new_ests$se,
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+testthat::test_that(
+  desc = "Model parms estimates are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$parameters[[1]],
+    expected = pfx$parameters[[1]],
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+testthat::test_that(
+  desc = "CFBI  estimates are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$parameters[[2]],
+    expected = pfx$parameters[[2]],
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+testthat::test_that(
+  desc = "MCFP estimates are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$parameters[[3]],
+    expected = pfx$parameters[[3]],
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+testthat::test_that(
+  desc = "target estimates are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$parameters[[4]],
+    expected = pfx$parameters[[4]][,-(8:9)],
+    tolerance = 1e-9,
+    check.attributes = FALSE
+  )
+)
+testthat::test_that(
+  desc = "Var mats [1] are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$variance_matrices[[1]],
+    expected = pfx$variance_matrices[[1]],
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+testthat::test_that(
+  desc = "Var mats [1]$Meat_mat are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$variance_matrices[[1]]$Meat_mat,
+    expected = pfx$variance_matrices[[1]]$Meat_mat,
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
+testthat::test_that(
+  desc = "Var mats [1]$Bread_mat are identical",
+  testthat::expect_equal(
+    object =  baseline_effects$variance_matrices[[1]]$Bread_mat,
+    expected = pfx$variance_matrices[[1]]$Bread_mat,
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)
