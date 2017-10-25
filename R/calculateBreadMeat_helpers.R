@@ -18,7 +18,7 @@ calcNuisanceBreadMeat <- function(
   index_references,
   alphas,
   verbose
-) {
+){
 
   ## verbose
   if (verbose) {print(":model stuff:")}
@@ -39,7 +39,7 @@ calcNuisanceBreadMeat <- function(
 
   ## verbose
   ckpt_time <- checkpointTimer(time1=ckpt_time, verbose)
-  if (verbose) {print(":CFBI eeqn:")}
+  if (verbose) {print(":CFBI EstFun:")}
   ## verbose
 
   geex_list_CFBI <- list(
@@ -75,7 +75,7 @@ calcNuisanceBreadMeat <- function(
 
 
 
-  if (verbose) {print(":MCFP eeqn:")}
+  if (verbose) {print(":MCFP EstFun:")}
 
   vec_dfm_no_alphas <-
     MCFP_tidy_estimates[MCFP_tidy_estimates$alpha == MCFP_tidy_estimates$alpha[[1]],

@@ -23,8 +23,11 @@ Imports:
     numDeriv (>= 2014.2-1),
     rootSolve (>= 1.6.6)
 Suggests:
-    testthat,
     inferference,
+    dplyr,
+    ggplot2,
+    magrittr,
+    testthat,
     rprojroot,
     knitr,
     rmarkdown

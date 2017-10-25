@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="Brian G. Barkley" />
+
+<meta name="date" content="2017-10-24" />
+
+<title>Introduction to the clusteredinterference package</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to the <code>clusteredinterference</code> package</h1>
+<h4 class="author"><em>Brian G. Barkley</em></h4>
+<h4 class="date"><em>2017-10-24</em></h4>
+
+
+
+<p>First, load this package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(clusteredinterference)</code></pre></div>
+<p>Now load a quick data example</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(inferference)
+<span class="kw">data</span>(<span class="st">&quot;vaccinesim&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;inferference&quot;</span>) 
+<span class="kw">head</span>(vaccinesim)</code></pre></div>
+<pre><code>##   Y        X1       X2 A B group
+## 1 1 5.3607405 1.715527 0 0     1
+## 2 0 0.1964597 1.730802 0 1     1
+## 3 0 0.4846243 1.769546 1 1     1
+## 4 0 0.8012977 1.715527 0 1     1
+## 5 0 2.1426629 1.772158 1 1     1
+## 6 0 1.2861017 1.715527 0 1     1</code></pre>
+<div id="estimation" class="section level2">
+<h2>Estimation</h2>
+<p>Estimation is implemented with one function:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx &lt;-<span class="st"> </span><span class="kw">policyFX</span>(
+  <span class="dt">data =</span> vaccinesim[<span class="dv">1</span><span class="op">:</span><span class="dv">300</span>,],
+  <span class="dt">formula =</span> Y <span class="op">|</span><span class="st"> </span>A <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>group) <span class="op">|</span><span class="st"> </span>group,
+  <span class="dt">alphas =</span> <span class="kw">c</span>(.<span class="dv">3</span>, .<span class="dv">5</span>), 
+  <span class="dt">k_samps =</span> <span class="dv">1</span>,
+  <span class="dt">verbose =</span> <span class="ot">FALSE</span>
+)
+
+causal_fx<span class="op">$</span>estimates</code></pre></div>
+<pre><code>##    alpha1_num alpha2_num trt alpha1 alpha2 estimand effect_type estVar k
+## 1           1         NA  NA    0.3     NA       mu     outcome   TRUE 1
+## 2           2         NA  NA    0.5     NA       mu     outcome   TRUE 1
+## 3           1         NA   0    0.3     NA      mu0     outcome   TRUE 1
+## 4           2         NA   0    0.5     NA      mu0     outcome   TRUE 1
+## 5           1         NA   1    0.3     NA      mu1     outcome   TRUE 1
+## 6           2         NA   1    0.5     NA      mu1     outcome   TRUE 1
+## 7           1          1  NA    0.3    0.3       CE    contrast   TRUE 1
+## 8           2          1  NA    0.5    0.3       CE    contrast   TRUE 1
+## 9           1          2  NA    0.3    0.5       CE    contrast   TRUE 1
+## 10          2          2  NA    0.5    0.5       CE    contrast   TRUE 1
+## 11          1          1   0    0.3    0.3      QE0    contrast   TRUE 1
+## 12          2          1   0    0.5    0.3      QE0    contrast   TRUE 1
+## 13          1          2   0    0.3    0.5      QE0    contrast   TRUE 1
+## 14          2          2   0    0.5    0.5      QE0    contrast   TRUE 1
+## 15          1          1   1    0.3    0.3      QE1    contrast   TRUE 1
+## 16          2          1   1    0.5    0.3      QE1    contrast   TRUE 1
+## 17          1          2   1    0.3    0.5      QE1    contrast   TRUE 1
+## 18          2          2   1    0.5    0.5      QE1    contrast   TRUE 1
+##       estimate          var         se          LCI          UCI
+## 1   0.21410455 0.0008437522 0.02904741  0.157172661  0.271036430
+## 2   0.15800249 0.0005949716 0.02439204  0.110194968  0.205810005
+## 3   0.24692676 0.0012754890 0.03571399  0.176928632  0.316924898
+## 4   0.20659509 0.0018823744 0.04338634  0.121559426  0.291630749
+## 5   0.09772803 0.0010324251 0.03213137  0.034751701  0.160704366
+## 6   0.08617145 0.0005279286 0.02297670  0.041137956  0.131204949
+## 7   0.00000000 0.0000000000 0.00000000  0.000000000  0.000000000
+## 8  -0.05610206 0.0006672187 0.02583058 -0.106729059 -0.005475059
+## 9   0.05610206 0.0006672187 0.02583058  0.005475059  0.106729059
+## 10  0.00000000 0.0000000000 0.00000000  0.000000000  0.000000000
+## 11  0.00000000 0.0000000000 0.00000000  0.000000000  0.000000000
+## 12 -0.04033168 0.0013961100 0.03736456 -0.113564861  0.032901506
+## 13  0.04033168 0.0013961100 0.03736456 -0.032901506  0.113564861
+## 14  0.00000000 0.0000000000 0.00000000  0.000000000  0.000000000
+## 15  0.00000000 0.0000000000 0.00000000  0.000000000  0.000000000
+## 16 -0.01155658 0.0006475236 0.02544649 -0.061430777  0.038317615
+## 17  0.01155658 0.0006475236 0.02544649 -0.038317615  0.061430777
+## 18  0.00000000 0.0000000000 0.00000000  0.000000000  0.000000000</code></pre>
+<div id="necessary-arguments" class="section level3">
+<h3>Necessary arguments</h3>
+<div id="data" class="section level4">
+<h4><code>data</code></h4>
+<p>A <code>data.frame</code>. At present, <code>tibble</code>s are coerced back to standard <code>data.frame</code>s. I also recommend against using <code>factor</code>s in the columns.</p>
+</div>
+<div id="alphas" class="section level4">
+<h4><code>alphas</code></h4>
+</div>
+<div id="formula" class="section level4">
+<h4><code>formula</code></h4>
+<p>The formula may be the trickiest, and it has plenty of information. It provides:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Y <span class="op">|</span><span class="st"> </span>A <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>group) <span class="op">|</span><span class="st"> </span>group
+outcome <span class="op">|</span><span class="st"> </span>treatment <span class="op">~</span><span class="st"> </span>predictors and random intercept <span class="op">|</span><span class="st"> </span>clustering specification</code></pre></div>
+<p>Note that the middle section is passed to <code>glmer()</code> to fit the mixed effects model, so this is how to specify the modeling formula!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>group)</code></pre></div>
+</div>
+</div>
+<div id="recommended-arguments" class="section level3">
+<h3>Recommended arguments</h3>
+<div id="k_samps" class="section level4">
+<h4><code>k_samps</code></h4>
+</div>
+</div>
+<div id="formal-arguments-with-defaults" class="section level3">
+<h3>Formal arguments with defaults</h3>
+<div id="verbose-false" class="section level4">
+<h4><code>verbose = FALSE</code></h4>
+</div>
+<div id="root_options-null" class="section level4">
+<h4><code>root_options = NULL</code></h4>
+<p>This is for <code>rootSolve::multiroot()</code> used in the point estimation procedure. E.g., this will be passed in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">root_options =<span class="st"> </span><span class="kw">list</span>(<span class="dt">atol =</span> <span class="fl">1e-7</span>) </code></pre></div>
+</div>
+<div id="nagq2" class="section level4">
+<h4><code>nAGQ=2</code></h4>
+<p>This is for <code>lme4::glmer()</code>. The default in <code>glmer()</code> is <code>nAGQ=1</code>, which indicates a Laplace approximation to the log-likelihood. Instead, in this package the default is <code>nAGQ=2</code>, which indicates that <code>n=2</code> Adaptive Gaussian Quadrature points will be used. This is slightly slower but is a more accurate calculation. In limited testing, it seems that <code>nAGQ=2</code> was almost as accurate as higher values, so 2 was chosen as the default. See their documentation for more details.</p>
+</div>
+<div id="return_matrices-false" class="section level4">
+<h4><code>return_matrices = FALSE</code></h4>
+<p>If TRUE, this will return the “bread” and “meat” matrices in the variance calculations.</p>
+</div>
+</div>
+<div id="dots-tricks" class="section level3">
+<h3>Dots tricks</h3>
+<p>In the event you’re only interested in a subset of contrasts, you can pass a customized grid into the function.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_grid &lt;-<span class="st"> </span><span class="kw">makeTargetGrid</span>(<span class="dt">alphas =</span> (<span class="dv">4</span><span class="op">:</span><span class="dv">10</span>)<span class="op">/</span><span class="dv">20</span>, <span class="dt">small_grid =</span> <span class="ot">TRUE</span>) 
+my_grid</code></pre></div>
+<pre><code>##     alpha1_num alpha2_num trt alpha1 alpha2 estimand effect_type estVar
+## 1            1         NA  NA   0.20     NA       mu     outcome   TRUE
+## 2            2         NA  NA   0.25     NA       mu     outcome   TRUE
+## 3            3         NA  NA   0.30     NA       mu     outcome   TRUE
+## 4            4         NA  NA   0.35     NA       mu     outcome   TRUE
+## 5            5         NA  NA   0.40     NA       mu     outcome   TRUE
+## 6            6         NA  NA   0.45     NA       mu     outcome   TRUE
+## 7            7         NA  NA   0.50     NA       mu     outcome   TRUE
+## 8            1         NA   0   0.20     NA      mu0     outcome   TRUE
+## 9            2         NA   0   0.25     NA      mu0     outcome   TRUE
+## 10           3         NA   0   0.30     NA      mu0     outcome   TRUE
+## 11           4         NA   0   0.35     NA      mu0     outcome   TRUE
+## 12           5         NA   0   0.40     NA      mu0     outcome   TRUE
+## 13           6         NA   0   0.45     NA      mu0     outcome   TRUE
+## 14           7         NA   0   0.50     NA      mu0     outcome   TRUE
+## 15           1         NA   1   0.20     NA      mu1     outcome   TRUE
+## 16           2         NA   1   0.25     NA      mu1     outcome   TRUE
+## 17           3         NA   1   0.30     NA      mu1     outcome   TRUE
+## 18           4         NA   1   0.35     NA      mu1     outcome   TRUE
+## 19           5         NA   1   0.40     NA      mu1     outcome   TRUE
+## 20           6         NA   1   0.45     NA      mu1     outcome   TRUE
+## 21           7         NA   1   0.50     NA      mu1     outcome   TRUE
+## 23           2          1  NA   0.25   0.20       CE    contrast   TRUE
+## 24           3          1  NA   0.30   0.20       CE    contrast   TRUE
+## 25           4          1  NA   0.35   0.20       CE    contrast   TRUE
+## 26           5          1  NA   0.40   0.20       CE    contrast   TRUE
+## 27           6          1  NA   0.45   0.20       CE    contrast   TRUE
+## 28           7          1  NA   0.50   0.20       CE    contrast   TRUE
+## 31           3          2  NA   0.30   0.25       CE    contrast   TRUE
+## 32           4          2  NA   0.35   0.25       CE    contrast   TRUE
+## 33           5          2  NA   0.40   0.25       CE    contrast   TRUE
+## 34           6          2  NA   0.45   0.25       CE    contrast   TRUE
+## 35           7          2  NA   0.50   0.25       CE    contrast   TRUE
+## 39           4          3  NA   0.35   0.30       CE    contrast   TRUE
+## 40           5          3  NA   0.40   0.30       CE    contrast   TRUE
+## 41           6          3  NA   0.45   0.30       CE    contrast   TRUE
+## 42           7          3  NA   0.50   0.30       CE    contrast   TRUE
+## 47           5          4  NA   0.40   0.35       CE    contrast   TRUE
+## 48           6          4  NA   0.45   0.35       CE    contrast   TRUE
+## 49           7          4  NA   0.50   0.35       CE    contrast   TRUE
+## 55           6          5  NA   0.45   0.40       CE    contrast   TRUE
+## 56           7          5  NA   0.50   0.40       CE    contrast   TRUE
+## 63           7          6  NA   0.50   0.45       CE    contrast   TRUE
+## 72           2          1   0   0.25   0.20      QE0    contrast   TRUE
+## 73           3          1   0   0.30   0.20      QE0    contrast   TRUE
+## 74           4          1   0   0.35   0.20      QE0    contrast   TRUE
+## 75           5          1   0   0.40   0.20      QE0    contrast   TRUE
+## 76           6          1   0   0.45   0.20      QE0    contrast   TRUE
+## 77           7          1   0   0.50   0.20      QE0    contrast   TRUE
+## 80           3          2   0   0.30   0.25      QE0    contrast   TRUE
+## 81           4          2   0   0.35   0.25      QE0    contrast   TRUE
+## 82           5          2   0   0.40   0.25      QE0    contrast   TRUE
+## 83           6          2   0   0.45   0.25      QE0    contrast   TRUE
+## 84           7          2   0   0.50   0.25      QE0    contrast   TRUE
+## 88           4          3   0   0.35   0.30      QE0    contrast   TRUE
+## 89           5          3   0   0.40   0.30      QE0    contrast   TRUE
+## 90           6          3   0   0.45   0.30      QE0    contrast   TRUE
+## 91           7          3   0   0.50   0.30      QE0    contrast   TRUE
+## 96           5          4   0   0.40   0.35      QE0    contrast   TRUE
+## 97           6          4   0   0.45   0.35      QE0    contrast   TRUE
+## 98           7          4   0   0.50   0.35      QE0    contrast   TRUE
+## 104          6          5   0   0.45   0.40      QE0    contrast   TRUE
+## 105          7          5   0   0.50   0.40      QE0    contrast   TRUE
+## 112          7          6   0   0.50   0.45      QE0    contrast   TRUE
+## 121          2          1   1   0.25   0.20      QE1    contrast   TRUE
+## 122          3          1   1   0.30   0.20      QE1    contrast   TRUE
+## 123          4          1   1   0.35   0.20      QE1    contrast   TRUE
+## 124          5          1   1   0.40   0.20      QE1    contrast   TRUE
+## 125          6          1   1   0.45   0.20      QE1    contrast   TRUE
+## 126          7          1   1   0.50   0.20      QE1    contrast   TRUE
+## 129          3          2   1   0.30   0.25      QE1    contrast   TRUE
+## 130          4          2   1   0.35   0.25      QE1    contrast   TRUE
+## 131          5          2   1   0.40   0.25      QE1    contrast   TRUE
+## 132          6          2   1   0.45   0.25      QE1    contrast   TRUE
+## 133          7          2   1   0.50   0.25      QE1    contrast   TRUE
+## 137          4          3   1   0.35   0.30      QE1    contrast   TRUE
+## 138          5          3   1   0.40   0.30      QE1    contrast   TRUE
+## 139          6          3   1   0.45   0.30      QE1    contrast   TRUE
+## 140          7          3   1   0.50   0.30      QE1    contrast   TRUE
+## 145          5          4   1   0.40   0.35      QE1    contrast   TRUE
+## 146          6          4   1   0.45   0.35      QE1    contrast   TRUE
+## 147          7          4   1   0.50   0.35      QE1    contrast   TRUE
+## 153          6          5   1   0.45   0.40      QE1    contrast   TRUE
+## 154          7          5   1   0.50   0.40      QE1    contrast   TRUE
+## 161          7          6   1   0.50   0.45      QE1    contrast   TRUE</code></pre>
+<p>This can be particularly useful for plotting, as you can “turn off” the variance estimates</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_grid<span class="op">$</span>estVar &lt;-<span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
+<p>This is available through the dots argument. Note that when supplying a custom <code>target_grid</code>, it’s not necessary to specify the <code>alphas</code> argument, as that is taken directly from <code>target_grid</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx2 &lt;-<span class="st"> </span><span class="kw">policyFX</span>(
+  <span class="dt">data =</span> vaccinesim[<span class="dv">1</span><span class="op">:</span><span class="dv">300</span>,],
+  <span class="dt">formula =</span> Y <span class="op">|</span><span class="st"> </span>A <span class="op">~</span><span class="st"> </span>X1 <span class="op">+</span><span class="st"> </span>X2 <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>group) <span class="op">|</span><span class="st"> </span>group,
+  <span class="co"># alphas = c(.3, .5), </span>
+  <span class="dt">target_grid =</span> my_grid,
+  <span class="dt">k_samps =</span> <span class="dv">5</span>,
+  <span class="dt">verbose =</span> <span class="ot">FALSE</span>
+)
+
+knitr<span class="op">::</span><span class="kw">kable</span>(causal_fx2<span class="op">$</span>estimates, <span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">alpha1_num</th>
+<th align="right">alpha2_num</th>
+<th align="right">trt</th>
+<th align="right">alpha1</th>
+<th align="right">alpha2</th>
+<th align="left">estimand</th>
+<th align="left">effect_type</th>
+<th align="left">estVar</th>
+<th align="right">k</th>
+<th align="right">estimate</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.20</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.239</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.25</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.228</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.30</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.216</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.35</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.203</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.40</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.189</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td align="right">6</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.45</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.174</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td align="right">7</td>
+<td align="right">NA</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">NA</td>
+<td align="left">mu</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.158</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.20</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.262</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.25</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.254</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.30</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.248</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.35</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.241</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.40</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.232</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td align="right">6</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.45</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.221</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td align="right">7</td>
+<td align="right">NA</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">NA</td>
+<td align="left">mu0</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.204</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.20</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.077</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.25</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.092</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.30</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.100</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.35</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.103</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.40</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.101</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td align="right">6</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.45</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.095</td>
+</tr>
+<tr class="odd">
+<td>21</td>
+<td align="right">7</td>
+<td align="right">NA</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">NA</td>
+<td align="left">mu1</td>
+<td align="left">outcome</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.088</td>
+</tr>
+<tr class="even">
+<td>23</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.25</td>
+<td align="right">0.20</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.011</td>
+</tr>
+<tr class="odd">
+<td>24</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.30</td>
+<td align="right">0.20</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.023</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.35</td>
+<td align="right">0.20</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.036</td>
+</tr>
+<tr class="odd">
+<td>26</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.40</td>
+<td align="right">0.20</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.050</td>
+</tr>
+<tr class="even">
+<td>27</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.45</td>
+<td align="right">0.20</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.065</td>
+</tr>
+<tr class="odd">
+<td>28</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">0.20</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.081</td>
+</tr>
+<tr class="even">
+<td>31</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">0.30</td>
+<td align="right">0.25</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.012</td>
+</tr>
+<tr class="odd">
+<td>32</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">0.35</td>
+<td align="right">0.25</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.025</td>
+</tr>
+<tr class="even">
+<td>33</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">0.40</td>
+<td align="right">0.25</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.038</td>
+</tr>
+<tr class="odd">
+<td>34</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">0.45</td>
+<td align="right">0.25</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.053</td>
+</tr>
+<tr class="even">
+<td>35</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">0.25</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.070</td>
+</tr>
+<tr class="odd">
+<td>39</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">0.35</td>
+<td align="right">0.30</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.013</td>
+</tr>
+<tr class="even">
+<td>40</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">0.40</td>
+<td align="right">0.30</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.026</td>
+</tr>
+<tr class="odd">
+<td>41</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">0.45</td>
+<td align="right">0.30</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.041</td>
+</tr>
+<tr class="even">
+<td>42</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">0.30</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.058</td>
+</tr>
+<tr class="odd">
+<td>47</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">0.40</td>
+<td align="right">0.35</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.014</td>
+</tr>
+<tr class="even">
+<td>48</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">0.45</td>
+<td align="right">0.35</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.029</td>
+</tr>
+<tr class="odd">
+<td>49</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">0.35</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.045</td>
+</tr>
+<tr class="even">
+<td>55</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">0.45</td>
+<td align="right">0.40</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.015</td>
+</tr>
+<tr class="odd">
+<td>56</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">0.40</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.032</td>
+</tr>
+<tr class="even">
+<td>63</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">NA</td>
+<td align="right">0.50</td>
+<td align="right">0.45</td>
+<td align="left">CE</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.017</td>
+</tr>
+<tr class="odd">
+<td>72</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.25</td>
+<td align="right">0.20</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.007</td>
+</tr>
+<tr class="even">
+<td>73</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.30</td>
+<td align="right">0.20</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.014</td>
+</tr>
+<tr class="odd">
+<td>74</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.35</td>
+<td align="right">0.20</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.021</td>
+</tr>
+<tr class="even">
+<td>75</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.40</td>
+<td align="right">0.20</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.029</td>
+</tr>
+<tr class="odd">
+<td>76</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.45</td>
+<td align="right">0.20</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.041</td>
+</tr>
+<tr class="even">
+<td>77</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">0.20</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.058</td>
+</tr>
+<tr class="odd">
+<td>80</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0.30</td>
+<td align="right">0.25</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.007</td>
+</tr>
+<tr class="even">
+<td>81</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0.35</td>
+<td align="right">0.25</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.013</td>
+</tr>
+<tr class="odd">
+<td>82</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0.40</td>
+<td align="right">0.25</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.022</td>
+</tr>
+<tr class="even">
+<td>83</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0.45</td>
+<td align="right">0.25</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.034</td>
+</tr>
+<tr class="odd">
+<td>84</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">0.25</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.050</td>
+</tr>
+<tr class="even">
+<td>88</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0.35</td>
+<td align="right">0.30</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.007</td>
+</tr>
+<tr class="odd">
+<td>89</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0.40</td>
+<td align="right">0.30</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.015</td>
+</tr>
+<tr class="even">
+<td>90</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0.45</td>
+<td align="right">0.30</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.027</td>
+</tr>
+<tr class="odd">
+<td>91</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">0.30</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.043</td>
+</tr>
+<tr class="even">
+<td>96</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0.40</td>
+<td align="right">0.35</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.008</td>
+</tr>
+<tr class="odd">
+<td>97</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0.45</td>
+<td align="right">0.35</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.020</td>
+</tr>
+<tr class="even">
+<td>98</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">0.35</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.037</td>
+</tr>
+<tr class="odd">
+<td>104</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">0.45</td>
+<td align="right">0.40</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.012</td>
+</tr>
+<tr class="even">
+<td>105</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">0.40</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.028</td>
+</tr>
+<tr class="odd">
+<td>112</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0.50</td>
+<td align="right">0.45</td>
+<td align="left">QE0</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.016</td>
+</tr>
+<tr class="even">
+<td>121</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.25</td>
+<td align="right">0.20</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.015</td>
+</tr>
+<tr class="odd">
+<td>122</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.30</td>
+<td align="right">0.20</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.023</td>
+</tr>
+<tr class="even">
+<td>123</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.35</td>
+<td align="right">0.20</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.026</td>
+</tr>
+<tr class="odd">
+<td>124</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.40</td>
+<td align="right">0.20</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.024</td>
+</tr>
+<tr class="even">
+<td>125</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.45</td>
+<td align="right">0.20</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.018</td>
+</tr>
+<tr class="odd">
+<td>126</td>
+<td align="right">7</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">0.20</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.011</td>
+</tr>
+<tr class="even">
+<td>129</td>
+<td align="right">3</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0.30</td>
+<td align="right">0.25</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.008</td>
+</tr>
+<tr class="odd">
+<td>130</td>
+<td align="right">4</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0.35</td>
+<td align="right">0.25</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.011</td>
+</tr>
+<tr class="even">
+<td>131</td>
+<td align="right">5</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0.40</td>
+<td align="right">0.25</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.009</td>
+</tr>
+<tr class="odd">
+<td>132</td>
+<td align="right">6</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0.45</td>
+<td align="right">0.25</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.003</td>
+</tr>
+<tr class="even">
+<td>133</td>
+<td align="right">7</td>
+<td align="right">2</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">0.25</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.004</td>
+</tr>
+<tr class="odd">
+<td>137</td>
+<td align="right">4</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0.35</td>
+<td align="right">0.30</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.003</td>
+</tr>
+<tr class="even">
+<td>138</td>
+<td align="right">5</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0.40</td>
+<td align="right">0.30</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">0.000</td>
+</tr>
+<tr class="odd">
+<td>139</td>
+<td align="right">6</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0.45</td>
+<td align="right">0.30</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.005</td>
+</tr>
+<tr class="even">
+<td>140</td>
+<td align="right">7</td>
+<td align="right">3</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">0.30</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.012</td>
+</tr>
+<tr class="odd">
+<td>145</td>
+<td align="right">5</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0.40</td>
+<td align="right">0.35</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.002</td>
+</tr>
+<tr class="even">
+<td>146</td>
+<td align="right">6</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0.45</td>
+<td align="right">0.35</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.008</td>
+</tr>
+<tr class="odd">
+<td>147</td>
+<td align="right">7</td>
+<td align="right">4</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">0.35</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.015</td>
+</tr>
+<tr class="even">
+<td>153</td>
+<td align="right">6</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0.45</td>
+<td align="right">0.40</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.005</td>
+</tr>
+<tr class="odd">
+<td>154</td>
+<td align="right">7</td>
+<td align="right">5</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">0.40</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.013</td>
+</tr>
+<tr class="even">
+<td>161</td>
+<td align="right">7</td>
+<td align="right">6</td>
+<td align="right">1</td>
+<td align="right">0.50</td>
+<td align="right">0.45</td>
+<td align="left">QE1</td>
+<td align="left">contrast</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">-0.007</td>
+</tr>
+</tbody>
+</table>
+<p>The tidy output works well with <code>ggplot2</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)</code></pre></div>
+<pre><code>## Warning: package 'ggplot2' was built under R version 3.3.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(magrittr)</code></pre></div>
+<pre><code>## Warning: package 'magrittr' was built under R version 3.3.3</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: 'dplyr'</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx2<span class="op">$</span>estimates <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(<span class="kw">is.na</span>(alpha2)) <span class="op">%&gt;%</span><span class="st"> </span>##Only the mu's
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(
+    <span class="dt">x =</span> alpha1, 
+    <span class="dt">y =</span> estimate, 
+    <span class="dt">group =</span> estimand,
+    <span class="dt">color =</span> estimand,
+    <span class="dt">linetype =</span> estimand
+    )) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept=</span><span class="dv">0</span>)<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">labs</span>(
+    <span class="dt">title =</span> <span class="st">&quot;Estimated Population Means&quot;</span>
+  ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>,<span class="fl">0.3</span>))</code></pre></div>
+<pre><code>## Warning: package 'bindrcpp' was built under R version 3.3.3</code></pre>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -149,7 +149,7 @@ policyFX <- function(
 
 
 
-  var_ests_list <- do.call(modularVar, args = var_args)
+  var_ests_list <- do.call(estimateVariance, args = var_args)
 
   ## to ouptut
   tidy_estimates <- var_ests_list$tidy_grid

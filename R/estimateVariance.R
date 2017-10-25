@@ -14,7 +14,7 @@
 # #' @param quick_MCFP_deriv FALSE would be dumb, use TRUE default
 # #'
 # #' @export
-modularVar <- function(
+estimateVariance <- function(
   split_data_list,
   alphas,
   model_parms,

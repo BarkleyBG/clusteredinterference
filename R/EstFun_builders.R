@@ -219,7 +219,7 @@ modelIntegrand <- function(
 
 # #' The scores? Derivative of log likelihood of treatment vectors
 # #'
-# #' @inheritParams MCFP_EEqn_LHS
+# #' @inheritParams MCFP_EstFun_LHS
 # #' @param deriv_loglihood passed to numDeriv. 'simple' or 'Richardson'
 # #'
 # #' @export
@@ -240,7 +240,7 @@ derivLogLike <- function(
 
 # #' computes the log_likelihood of a treatment vector
 # #'
-# #' @inheritParams MCFP_EEqn_LHS
+# #' @inheritParams MCFP_EstFun_LHS
 # #' @param x model parameters (beta,sigma) passed in from derivLogLike
 # #'
 # #' @export
@@ -262,11 +262,11 @@ modelLoglihood <- function( x, model_mat, model_DV_vec ){
 
 
 ## ## ## ## ## ## ## ## ## ## ## ## ##
-## ##### II. CFBI eeqn builders #####
+## ##### II. CFBI EstFun builders #####
 
 # #' One group's contribution to the objective function (and subtract alpha)
 # #'
-# #' @inheritParams MCFP_EEqn_LHS
+# #' @inheritParams MCFP_EstFun_LHS
 # #'
 # #' @export
 groupAvgProbTrt <- function(model_parms,  CFBI, model_mat){
@@ -303,7 +303,7 @@ groupAvgProbTrt <- function(model_parms,  CFBI, model_mat){
 }
 
 # ## ## ## ## ## ## ## ## ## ## ## ##
-# ##### III. MCFP eeqn builders #####
+# ##### III. MCFP EstFun builders #####
 #
 # #' One group's contribution to the objective function for omegas
 # #'
@@ -314,7 +314,7 @@ groupAvgProbTrt <- function(model_parms,  CFBI, model_mat){
 # #' @param model_mat the covariates (independent variables)
 # #'
 # #' @export
-MCFP_EEqn_LHS <- function(
+MCFP_EstFun_LHS <- function(
   model_parms,
   CFBI,
   vec_dfm_no_alphas,
@@ -412,7 +412,7 @@ MCFP_EEqn_LHS <- function(
 
 ## #' One group's contribution to the Objective function for target estimands
 ## #'
-## #' @inheritParams MCFP_EEqn_LHS
+## #' @inheritParams MCFP_EstFun_LHS
 ## #' @param MCFP the estimated omegas
 ## #' @param return_prop_score_only default FALSE
 ## #' @param treatment_vec the treatment vector
@@ -421,7 +421,7 @@ MCFP_EEqn_LHS <- function(
 ## #' @param CPS the cluster propensity score, for estimation not variance
 ## #'
 ## #' @export
-targetEEqnLHS <- function(
+targetEstFunLHS <- function(
   model_parms,
   outcome_vec,
   treatment_vec,

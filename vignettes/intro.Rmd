@@ -1,5 +1,5 @@
 ---
-title: "Illustration of Estimator"
+title: "Introduction to the `clusteredinterference` package"
 author: "Brian G. Barkley"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -31,7 +31,7 @@ Estimation is implemented with one function:
 
 
 ```{r} 
-type_C <- policyFX(
+causal_fx <- policyFX(
   data = vaccinesim[1:300,],
   formula = Y | A ~ X1 + X2 + (1|group) | group,
   alphas = c(.3, .5), 
@@ -39,6 +39,7 @@ type_C <- policyFX(
   verbose = FALSE
 )
 
+causal_fx$estimates
 ```
 
 ### Necessary arguments
@@ -51,7 +52,7 @@ A `data.frame`. At present, `tibble`s are coerced back to standard `data.frame`s
 
 #### `formula`
 
-The formula is the trickiest, and it has plenty of information. It provides:
+The formula may be the trickiest, and it has plenty of information. It provides:
 
 ```{r, eval = FALSE}
 Y | A ~ X1 + X2 + (1|group) | group
@@ -95,23 +96,60 @@ If TRUE, this will return the "bread" and "meat" matrices in the variance calcul
 In the event you're only interested in a subset of contrasts, you can pass a customized grid into the function.
 
 ```{r} 
-my_grid <- makeTargetGrid(alphas = c(0.3, 0.5), small_grid = TRUE)
-my_grid <- my_grid[is.na(my_grid$trt), ]
+my_grid <- makeTargetGrid(alphas = (4:10)/20, small_grid = TRUE) 
 my_grid
 ```
+
+This can be particularly useful for plotting, as you can "turn off" the variance estimates 
+
+```{r}
+my_grid$estVar <- FALSE
+```
+
 
 This is available through the dots argument. Note that when supplying a custom `target_grid`, it's not necessary to specify the `alphas` argument, as that is taken directly from `target_grid`.
 
 ```{r}
-type_C <- policyFX(
+causal_fx2 <- policyFX(
   data = vaccinesim[1:300,],
   formula = Y | A ~ X1 + X2 + (1|group) | group,
   # alphas = c(.3, .5), 
   target_grid = my_grid,
-  k_samps = 1,
-  verbose = TRUE
+  k_samps = 5,
+  verbose = FALSE
 )
 
+knitr::kable(causal_fx2$estimates, digits = 3)
 ```
+
+The tidy output works well with `ggplot2`:
+
+```{r}
+library(ggplot2)
+library(magrittr)
+library(dplyr)
+
+causal_fx2$estimates %>% 
+  filter(is.na(alpha2)) %>% ##Only the mu's
+  ggplot(aes(
+    x = alpha1, 
+    y = estimate, 
+    group = estimand,
+    color = estimand,
+    linetype = estimand
+    )) + 
+  geom_point() +
+  geom_line() + 
+  geom_hline(yintercept=0)+
+  theme_bw() + 
+  labs(
+    title = "Estimated Population Means"
+  ) + 
+  theme(legend.position = "bottom") + 
+  coord_cartesian(ylim = c(0,0.3))
+  
+  
+```
+
 
 

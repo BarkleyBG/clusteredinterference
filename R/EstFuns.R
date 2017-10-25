@@ -73,7 +73,7 @@ modular_MCFP_estfun_quick <- function(
     theta_MCFP <- MCFP_onealpha
 
 
-    III_alpha1_MCFP_vec <- MCFP_EEqn_LHS(
+    III_alpha1_MCFP_vec <- MCFP_EstFun_LHS(
       model_parms = theta_model,
       CFBI = theta_CFBI,
       vec_dfm_no_alphas = vec_dfm_no_alphas,
@@ -95,7 +95,7 @@ modular_MCFP_estfun_quick <- function(
 # #' Estimating equation function for just the CE parameter
 # #'
 # #' @inheritParams modularVar
-# #' @inheritParams targetEEqnLHS
+# #' @inheritParams targetEstFunLHS
 # #' @inheritParams calcYBar
 # #' @inheritParams estimateGroupTarget
 # #' @inheritParams makeIndexReferences
@@ -171,7 +171,7 @@ makeTargetEstFun <- function(
       MCFP <- MCFP_alpha1
     }
 
-    target_val <- targetEEqnLHS(
+    target_val <- targetEstFunLHS(
       model_parms = theta[model_indices],
       outcome_vec = outcome_vec,
       treatment_vec = treatment_vec,
@@ -218,7 +218,7 @@ makeTargetEstFun <- function(
 
 
 ## ## ## ## ## ## ## ## ## ## ## ##
-##### CFBI-only geexable EEQn #####
+##### CFBI-only geexable EstFun #####
 
 
 
@@ -230,7 +230,7 @@ makeTargetEstFun <- function(
 # #' @param alpha the policy
 # #'
 # #' @export
-CFBI_only_EEqn <- function(
+CFBI_only_EstFun <- function(
   data_list,
   model_parms,
   alpha
@@ -252,38 +252,3 @@ CFBI_only_EEqn <- function(
 
 }
 
-
-
-# #' Estimating equation function for the MCFP parameters
-# #'
-# #' @inheritParams makeTargetEstFun
-# #' @inheritParams modular_MCFP_estfun_quick
-# #'
-# #' @export
-# modular_MCFP_estfun <- function(
-#   data_list,
-#   alpha,
-#   num_model_parms,
-#   vec_dfm_no_alphas
-# ){
-#   force(data_list)
-#
-#   f2 <- function(theta){
-#
-#     theta_model <- theta[1:num_model_parms]
-#     theta_CFBI <- theta[num_model_parms+1]
-#     theta_MCFP <- theta[-(1:(1+num_model_parms))]
-#
-#     III_alpha1_MCFP_vec <- MCFP_EEqn_LHS(
-#       model_parms = theta_model,
-#       CFBI = theta_CFBI,
-#       vec_dfm_no_alphas = vec_dfm_no_alphas,
-#       model_DV_vec = data_list$model_DV_vec,
-#       model_mat = data_list$model_matrix
-#     )
-#
-#     MCFP_psi_vec_alpha1 <- III_alpha1_MCFP_vec - theta_MCFP
-#     MCFP_psi_vec_alpha1[is.na(MCFP_psi_vec_alpha1)] <- 0
-#     MCFP_psi_vec_alpha1
-#   }
-# }
