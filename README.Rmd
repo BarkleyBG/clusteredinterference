@@ -4,8 +4,6 @@ output:
     variant: markdown_github
 ---
 
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -51,11 +49,10 @@ causal_fx <- policyFX(
   data = vaccinesim[1:300,],
   formula = Y | A ~ X1 + X2 + (1|group) | group,
   alphas = c(.3, .5), 
-  k_samps = 1,
-  verbose = FALSE
+  k_samps = 1
 )
-
 ```
+
 
 ```{r}
 knitr::kable(causal_fx$estimates, digits = 3)
@@ -65,8 +62,9 @@ knitr::kable(causal_fx$estimates, digits = 3)
 
 The vignette provides more information on the formal arguments.
 
+
 ## Acknowledgments
 
-- Please see the [https://cran.r-project.org/package=inferference](inferference) package for related estimators from the article [https://doi.org/10.1177/0962280210386779](Tchetgen Tchetgen and VanderWeele (2012) article, "On causal inference in the presence of interference")
-- An earlier version of the methods implemented in `clusteredinterference` was implemented using the [https://github.com/bsaul/geex](`geex`) package for estimating equations.
-- Thanks to [https://github.com/bsaul](Bradley Saul) for `inferference`, `geex`, and for comments and suggestions that were helpful in the creation of `clusteredinterference`.
+- Please see the [inferference](https://cran.r-project.org/package=inferference) package for related estimators from the article [Tchetgen Tchetgen and VanderWeele (2012) article, "On causal inference in the presence of interference"](https://doi.org/10.1177/0962280210386779)
+- An earlier version of the methods implemented in `clusteredinterference` was implemented using the [`geex`](https://github.com/bsaul/geex) package for estimating equations.
+- Thanks to [Bradley Saul](https://github.com/bsaul) for `inferference`, `geex`, and for comments and suggestions that were helpful in the creation of `clusteredinterference`.
