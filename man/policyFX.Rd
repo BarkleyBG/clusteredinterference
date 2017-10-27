@@ -14,7 +14,7 @@ policyFX(data, formula, alphas, k_samps = NULL, ..., verbose = FALSE,
 
 \item{alphas}{a vector of policies of interest. Each entry must be between 0 and 1}
 
-\item{k_samps}{The maximum number of vectors to evaluate to estimate the omega term. Set to 0 to leave upcapped without a maximum. Recommended to set <= 5.}
+\item{k_samps}{The maximum number of vectors to evaluate to estimate the omega term. Setting to 0 avoids approximation at the cost of increased computation time. Recommended to set <= 5.}
 
 \item{...}{The dots}
 

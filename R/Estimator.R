@@ -6,7 +6,7 @@
 #' @param data a dataframe (not a tibble)
 #' @param formula a long formula call with outcome | treatment ~ covariates + (1|cluster_id) | cluster_id
 #' @param alphas a vector of policies of interest. Each entry must be between 0 and 1
-#' @param k_samps The maximum number of vectors to evaluate to estimate the omega term. Set to 0 to leave upcapped without a maximum. Recommended to set <= 5.
+#' @param k_samps The maximum number of vectors to evaluate to estimate the omega term. Setting to 0 avoids approximation at the cost of increased computation time. Recommended to set <= 5.
 #' @param ... The dots
 #' @param nAGQ passed into lme4::glmer(). Recommended more than 1. Defaults to 2.
 #' @param root_options passed to multiroot function.

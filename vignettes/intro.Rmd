@@ -32,7 +32,7 @@ Estimation is implemented with one function:
 
 ```{r} 
 causal_fx <- policyFX(
-  data = vaccinesim[1:300,],
+  data = vaccinesim[1:200,],
   formula = Y | A ~ X1 + X2 + (1|group) | group,
   alphas = c(.3, .5), 
   k_samps = 1,
@@ -111,12 +111,13 @@ This is available through the dots argument. Note that when supplying a custom `
 
 ```{r}
 causal_fx2 <- policyFX(
-  data = vaccinesim[1:300,],
+  data = vaccinesim[1:200,],
   formula = Y | A ~ X1 + X2 + (1|group) | group,
   # alphas = c(.3, .5), 
   target_grid = my_grid,
   k_samps = 5,
-  verbose = FALSE
+  verbose = FALSE,
+  root_options = list(atol=1e-4)
 )
 
 knitr::kable(causal_fx2$estimates, digits = 3)
