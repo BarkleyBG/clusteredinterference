@@ -2,28 +2,23 @@
 library(clusteredinterference)
 
 ## ------------------------------------------------------------------------
-library(inferference)
-data("vaccinesim", package = "inferference") 
-head(vaccinesim)
-
+data("toy_data") 
 
 ## ------------------------------------------------------------------------
 causal_fx <- policyFX(
-  data = vaccinesim[1:300,],
-  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
   alphas = c(.3, .5), 
-  k_samps = 1,
-  verbose = FALSE
+  k_samps = 1
 )
 
 causal_fx$estimates
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  Y | A ~ X1 + X2 + (1|group) | group
 #  outcome | treatment ~ predictors and random intercept | clustering specification
 
 ## ---- eval = FALSE-------------------------------------------------------
-#  A ~ X1 + X2 + (1|group)
+#  Treatment ~ Age + Distance + (1 | Cluster_ID)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  root_options = list(atol = 1e-7)
@@ -37,12 +32,13 @@ my_grid$estVar <- FALSE
 
 ## ------------------------------------------------------------------------
 causal_fx2 <- policyFX(
-  data = vaccinesim[1:300,],
-  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
   # alphas = c(.3, .5), 
   target_grid = my_grid,
   k_samps = 5,
-  verbose = FALSE
+  verbose = FALSE,
+  root_options = list(atol=1e-4)
 )
 
 knitr::kable(causal_fx2$estimates, digits = 3)

@@ -41,21 +41,19 @@ library(clusteredinterference)
 
 ## A quick data example
 
-```{r}
-library(inferference)
-data("vaccinesim", package = "inferference") 
-head(vaccinesim)
-
+```{r} 
+data("toy_data")
+head(toy_data)
 ```
 
 ## Estimation
 
-Estimation is implemented with one function:
+Estimation is carried out with one function:
 
 ```{r} 
 causal_fx <- policyFX(
-  data = vaccinesim[1:200,],
-  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
   alphas = c(.35, .40), 
   k_samps = 1
 )

@@ -9,19 +9,16 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-First, load this package 
+First, load the `clusteredinterference` package 
 
 ```{r}
 library(clusteredinterference)
 ```
 
-Now load a quick data example
+Now load a quick data example that's included in the package
 
 ```{r}
-library(inferference)
-data("vaccinesim", package = "inferference") 
-head(vaccinesim)
-
+data("toy_data") 
 ```
 
 ## Estimation
@@ -32,15 +29,15 @@ Estimation is implemented with one function:
 
 ```{r} 
 causal_fx <- policyFX(
-  data = vaccinesim[1:200,],
-  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
   alphas = c(.3, .5), 
-  k_samps = 1,
-  verbose = FALSE
+  k_samps = 1
 )
 
 causal_fx$estimates
 ```
+
 
 ### Necessary arguments
 
@@ -50,23 +47,26 @@ A `data.frame`. At present, `tibble`s are coerced back to standard `data.frame`s
 
 #### `alphas`
 
+A numeric vector of probabilities corresponding the the policies of interest. Each must be between 0 and 1. 
+
+#### `k_samps`
+
+The user must specify the number of sum-sampled vectors for estimating the counterfactual probabilities (nuisance parameters). It is recommended to choose `k_samps <=5`. To avoid the sub-sampling approximation and use all possible vectors, set `k_samps=0`.
+
 #### `formula`
 
 The formula may be the trickiest, and it has plenty of information. It provides:
 
 ```{r, eval = FALSE}
-Y | A ~ X1 + X2 + (1|group) | group
 outcome | treatment ~ predictors and random intercept | clustering specification
 ```
 
-Note that the middle section is passed to `glmer()` to fit the mixed effects model, so this is how to specify the modeling formula!
+Note that the middle section is passed to `glmer()` to fit the mixed effects model, so this is how to specify the modeling formula.
 
 ```{r, eval = FALSE}
-A ~ X1 + X2 + (1|group)
+Treatment ~ Age + Distance + (1 | Cluster_ID)
 ```
-### Recommended arguments
 
-#### `k_samps`
 
 ### Formal arguments with defaults
 
@@ -86,9 +86,7 @@ This is for `lme4::glmer()`. The default in `glmer()` is `nAGQ=1`, which indicat
 
 #### `return_matrices = FALSE`
   
-If TRUE, this will return the "bread" and "meat" matrices in the variance calculations.
-
-
+If `TRUE`, this will return the "bread" and "meat" matrices in the variance calculations. The default is `FALSE` as these matrices can be quite large.
 
 
 ### Dots tricks
@@ -106,13 +104,12 @@ This can be particularly useful for plotting, as you can "turn off" the variance
 my_grid$estVar <- FALSE
 ```
 
-
 This is available through the dots argument. Note that when supplying a custom `target_grid`, it's not necessary to specify the `alphas` argument, as that is taken directly from `target_grid`.
 
 ```{r}
 causal_fx2 <- policyFX(
-  data = vaccinesim[1:200,],
-  formula = Y | A ~ X1 + X2 + (1|group) | group,
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
   # alphas = c(.3, .5), 
   target_grid = my_grid,
   k_samps = 5,
