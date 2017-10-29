@@ -1,8 +1,8 @@
 Package: clusteredinterference
 Type: Package
-Date: 2017-10-18
+Date: 2017-10-29
 Title: Causal Effects from Observational Studies with Clustered Interference
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: person("Brian", "Barkley", email = "BarkleyBG@unc.edu",
     role = c("aut", "cre"))
 Description: Estimating causal effects from observational studies targeting
@@ -23,9 +23,6 @@ Imports:
     numDeriv (>= 2014.2-1),
     rootSolve (>= 1.6.6)
 Suggests:
-    dplyr,
-    ggplot2,
-    magrittr,
     testthat,
     rprojroot,
     knitr,

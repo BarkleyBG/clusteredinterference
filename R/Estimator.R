@@ -152,7 +152,7 @@ policyFX <- function(
   var_ests_list <- do.call(estimateVariance, args = var_args)
 
   ## to ouptut
-  tidy_estimates <- var_ests_list$tidy_grid
+  tidy_estimates <- tidyEstimates(var_ests_list$tidy_grid)
   ## to output
   if (return_matrices== TRUE){
     variance_matrices <-  var_ests_list$var_matrices

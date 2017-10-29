@@ -54,7 +54,7 @@ Estimation is carried out with one function:
 causal_fx <- policyFX(
   data = toy_data,
   formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
-  alphas = c(.35, .40), 
+  alphas = c(.15, .25), 
   k_samps = 1
 )
 ```

@@ -12,7 +12,7 @@ causal_fx <- policyFX(
   k_samps = 1
 )
 
-causal_fx$estimates
+knitr::kable(causal_fx$estimates[1:6,], digits = 3)
 
 ## ---- eval = FALSE-------------------------------------------------------
 #  outcome | treatment ~ predictors and random intercept | clustering specification
@@ -24,8 +24,8 @@ causal_fx$estimates
 #  root_options = list(atol = 1e-7)
 
 ## ------------------------------------------------------------------------
-my_grid <- makeTargetGrid(alphas = (4:10)/20, small_grid = TRUE) 
-my_grid
+my_grid <- makeTargetGrid(alphas = (3:8)/20, small_grid = TRUE) 
+head(my_grid)
 
 ## ------------------------------------------------------------------------
 my_grid$estVar <- FALSE
@@ -41,31 +41,9 @@ causal_fx2 <- policyFX(
   root_options = list(atol=1e-4)
 )
 
-knitr::kable(causal_fx2$estimates, digits = 3)
+knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
 
-## ------------------------------------------------------------------------
-library(ggplot2)
-library(magrittr)
-library(dplyr)
-
-causal_fx2$estimates %>% 
-  filter(is.na(alpha2)) %>% ##Only the mu's
-  ggplot(aes(
-    x = alpha1, 
-    y = estimate, 
-    group = estimand,
-    color = estimand,
-    linetype = estimand
-    )) + 
-  geom_point() +
-  geom_line() + 
-  geom_hline(yintercept=0)+
-  theme_bw() + 
-  labs(
-    title = "Estimated Population Means"
-  ) + 
-  theme(legend.position = "bottom") + 
-  coord_cartesian(ylim = c(0,0.3))
-  
-  
+## ---- fig.width = 6, fig.height = 5--------------------------------------
+plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
+plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
 

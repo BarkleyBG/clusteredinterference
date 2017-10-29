@@ -35,7 +35,7 @@ causal_fx <- policyFX(
   k_samps = 1
 )
 
-causal_fx$estimates
+knitr::kable(causal_fx$estimates[1:6,], digits = 3)
 ```
 
 
@@ -94,8 +94,8 @@ If `TRUE`, this will return the "bread" and "meat" matrices in the variance calc
 In the event you're only interested in a subset of contrasts, you can pass a customized grid into the function.
 
 ```{r} 
-my_grid <- makeTargetGrid(alphas = (4:10)/20, small_grid = TRUE) 
-my_grid
+my_grid <- makeTargetGrid(alphas = (3:8)/20, small_grid = TRUE) 
+head(my_grid)
 ```
 
 This can be particularly useful for plotting, as you can "turn off" the variance estimates 
@@ -117,37 +117,12 @@ causal_fx2 <- policyFX(
   root_options = list(atol=1e-4)
 )
 
-knitr::kable(causal_fx2$estimates, digits = 3)
+knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
 ```
 
-The tidy output works well with `ggplot2`:
-
-```{r}
-library(ggplot2)
-library(magrittr)
-library(dplyr)
-
-causal_fx2$estimates %>% 
-  filter(is.na(alpha2)) %>% ##Only the mu's
-  ggplot(aes(
-    x = alpha1, 
-    y = estimate, 
-    group = estimand,
-    color = estimand,
-    linetype = estimand
-    )) + 
-  geom_point() +
-  geom_line() + 
-  geom_hline(yintercept=0)+
-  theme_bw() + 
-  labs(
-    title = "Estimated Population Means"
-  ) + 
-  theme(legend.position = "bottom") + 
-  coord_cartesian(ylim = c(0,0.3))
-  
-  
+```{r, fig.width = 6, fig.height = 5}
+plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
+plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
 ```
-
 
 
