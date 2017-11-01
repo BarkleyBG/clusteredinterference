@@ -1,16 +1,14 @@
 
-
 context('Integration test')
 
-filename <- rprojroot::find_testthat_root_file(
-  "..",  "test_integration.Rdata")
+
+filename <- quickLookup("test_integration.Rdata")
 load(file=filename) ## loads est_args and baseline_effects
 
 set.seed(101010)
 pfx <- do.call( policyFX, args = est_args )
 
 new_ests <- pfx$estimates
-# new_ests <- new_ests[,-(8:9)] ##discard the columns for "k" and "estVar"
 old_ests <- baseline_effects$estimates
 
 OE2 <- old_ests[is.na(old_ests$trt),]
