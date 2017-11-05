@@ -7,7 +7,8 @@
 makeTargetGrid(alphas, small_grid = FALSE)
 }
 \arguments{
-\item{alphas}{a vector of policies of interest. Each entry must be between 0 and 1}
+\item{alphas}{A numeric vector for the probabilities corresponding to the
+policies of interest. Each entry must be between 0 and 1.}
 
 \item{small_grid}{if TRUE then only estimates some policies. Default is FALSE.}
 }

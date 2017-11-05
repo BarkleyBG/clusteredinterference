@@ -1,20 +1,65 @@
 
-#' Estimate causal effects (FX) of nonrandomized policies
+#' Estimate Causal Effects ("FX") of Population Treatment Policies Assuming
+#' Clustered Interference
 #'
-#' For the dots function, user may supply their own \code{target_grid} through the dots argument. The \code{target_grid} can be made through exported function \code{makeTargetGrid}
+#' This function implements the estimators from Barkley et al (201X) for
+#' observational studies when \bold{clustered interference} is assumed These
+#' estimators are based on inverse probability-weighting by the propensity score
+#' for treatment (IPTW) to estimate causal effects of counterfactual policies of
+#' interest (i.e., \code{policyFX}) when clustered interference is assumed. The
+#' policies of interest correspond to counterfactual scenarios in which
+#' treatment may be correlated within clusters. This method estimates causal
+#' contrasts of these policies by estimating the counterfactual treatment
+#' probabilities; taking the correlation structures into account requires heavy
+#' computational resources, so the user should be patient.
 #'
-#' @param data a dataframe (not a tibble)
-#' @param formula a long formula call with outcome | treatment ~ covariates + (1|cluster_id) | cluster_id
-#' @param alphas a vector of policies of interest. Each entry must be between 0 and 1
-#' @param k_samps The maximum number of vectors to evaluate to estimate the omega term. Setting to 0 avoids approximation at the cost of increased computation time. Recommended to set <= 5.
-#' @param ... The dots
-#' @param nAGQ passed into lme4::glmer(). Recommended more than 1. Defaults to 2.
-#' @param root_options passed to multiroot function.
-#' @param return_matrices whether to return variance matrices
-#' @param verbose if TRUE then will print (lots of) output. Defaults to FALSE.
-
+#' @param data A \code{data.frame} (not a \code{tibble}). Columns of
+#'   \code{factor} types are not recommended and will sometimes throw
+#'   (defensive) errors.
+#' @param formula The \code{formula} defines the different components of the
+#'   method. The components are specified by \code{outcome | treatment ~
+#'   f(covariates) + (1|cluster_id) | cluster_id}. The middle component is
+#'   passed to \code{\link{glmer}}, so \code{treatment ~ f(covariates) +
+#'   (1|cluster_id)} specifies the model form for the propensity score (i.e.,
+#'   treatment) model. See Details.
+#' @param alphas A numeric vector for the probabilities corresponding to the
+#'   policies of interest. Each entry must be between 0 and 1.
+#' @param k_samps The maximum number of vectors to evaluate to estimate the
+#'   counterfactual probabilities (i.e., \eqn{\omega(A,N,\alpha)}). Setting to 0
+#'   avoids approximation at the cost of increased computation time. Recommended
+#'   to set <= 5.
+#' @param ... The dots argument. The user may supply their own \code{target_grid}
+#'   through the dots argument. The \code{target_grid} can be made through
+#'   exported function \code{\link{makeTargetGrid}}
+#' @param nAGQ This is the number of Adaptive Gaussian Quadrature points used in
+#'   the \code{\link{glmer}} model fitting computation. Defaults to 2. It is
+#'   recommended to use more than 1.
+#' @param root_options These are passed to \code{\link{multiroot}} function.
+#' @param return_matrices A Boolean on whether to return the "bread" and "meat"
+#'   matrices in the sandwich variance. Defaults to \code{FALSE}.
+#' @param verbose A Boolean on whether to print output to \code{stderr}.
+#'   Defaults to FALSE.
 #'
-#' @return a list
+#' @details The modeling formula for the propensity score (i.e., treatment)
+#'   model is specified via the \code{formula} formal argument. An example of a
+#'   model logit-linear fixed effects would be \code{Y | A ~ X1 + X2 + (1 |
+#'   cluster_ID) | cluster_ID}. A similar model that also includes an
+#'   interaction term is \code{Y | A ~ X1 + X2 + X1:X2 + (1 | cluster_ID) |
+#'   cluster_ID}.
+#'
+#' @author Brian G. Barkley, \email{BarkleyBG@@unc.edu}
+#'
+#' @return A \code{list} object including: \itemize{ \item \code{estimates}: A
+#'   tidy \code{data.frame} with columns \code{estimand}, \code{estimate},
+#'   \code{var}, \code{se}, \code{LCI} and \code{UCI} for 95\% CI's, and more
+#'   information. \item \code{parameters}: An untidy \code{list} of the point
+#'   estimates of all (target and nuisance) parameters. \item
+#'   \code{variance_matrices}: When \code{return_matrices} is \code{TRUE} this
+#'   is a \code{list} object for the "bread" and "meat" matrices in the sandwich
+#'   variance calculations for each estimand. Otherwise, it is a \code{list}
+#'   object with length 0. \item \code{propensity_scores}: The estimated
+#'   propensity scores for each cluster. }
+#'
 #' @export
 policyFX <- function(
   data,
@@ -166,9 +211,8 @@ policyFX <- function(
     estimates = tidy_estimates,
     parameters = parameters,
     variance_matrices = variance_matrices,
-    prop_scores = targets_and_cps$prop_scores
+    propensity_scores = targets_and_cps$prop_scores
   )
-
 
 }
 
