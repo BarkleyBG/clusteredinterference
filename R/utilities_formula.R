@@ -37,19 +37,18 @@ argTests <- function(
     alphas <- alphas[!duplicated(alphas)]
   }
 
-
-  len_lhs_formule <- length(formule)[1]
-  len_rhs_formule <- length(formule)[2]
+  formule_dims <- length(formule)
+  len_lhs_formule <- formule_dims[1]
+  len_rhs_formule <- formule_dims[2]
   modeling_formula <- stats::formula(
     stats::terms(formule, lhs = len_lhs_formule, rhs = -2))
-  grouping_var_name <- attr(
-    stats::terms(formule, lhs = 0, rhs = len_rhs_formule), 'term.labels')
 
+  gp_terms <- stats::terms(formule, lhs = 0, rhs = len_rhs_formule)
+  grouping_var_name <- attr(gp_terms, 'term.labels')
+  grouping_var_vec <- data[[grouping_var_name]]
 
-
-  if (any( data[[grouping_var_name]] != order(data[[grouping_var_name]]))) {
-    ## For the sake of consistency downstream, reorder data frame by groups ##
-    data <- data[order(data[[grouping_var_name]]), ]
+  if (any( grouping_var_vec != sort(grouping_var_vec))) {
+    data <- data[order(grouping_var_vec), ]
   }
 
   out_list <- list(

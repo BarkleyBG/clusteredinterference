@@ -1,0 +1,19 @@
+
+context('Estimate CFBI and MCFP values')
+
+load(file = quickLookup("test_CFBI_MCFP.Rdata"))
+
+set.seed(101010)
+
+CFBI_MCFP_list <- do.call(what=estimateNuisance,args=CFBI_args)
+
+
+testthat::test_that(
+  desc = "Nuisance parameter estimation returns as expected",
+  testthat::expect_equal(
+    object =  CFBI_MCFP_list,
+    expected = CFBI_MCFP_orig,
+    tolerance = 1e-9,
+    check.attributes = TRUE
+  )
+)

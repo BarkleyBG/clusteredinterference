@@ -421,7 +421,7 @@ calcTargetBreadMeat <- function(
   )
 
 
-  A_target_list <-
+  AB_target_list <-
     calculateBreadMeat(
       geex_list = list(
         eeFUN = makeTargetEstFun,
