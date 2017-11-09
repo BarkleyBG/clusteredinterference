@@ -47,3 +47,46 @@ knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
 plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
 plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
 
+## ------------------------------------------------------------------------
+causal_fx <- policyFX(
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
+  alphas = c(.3, .5), 
+  k_samps = 1
+)
+
+knitr::kable(causal_fx$estimates[1:6,], digits = 3)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  outcome | treatment ~ predictors and random intercept | clustering specification
+
+## ---- eval = FALSE-------------------------------------------------------
+#  Treatment ~ Age + Distance + (1 | Cluster_ID)
+
+## ---- eval = FALSE-------------------------------------------------------
+#  root_options = list(atol = 1e-7)
+
+## ------------------------------------------------------------------------
+my_grid <- makeTargetGrid(alphas = (3:8)/20, small_grid = TRUE) 
+head(my_grid)
+
+## ------------------------------------------------------------------------
+my_grid$estVar <- FALSE
+
+## ------------------------------------------------------------------------
+causal_fx2 <- policyFX(
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
+  # alphas = c(.3, .5), 
+  target_grid = my_grid,
+  k_samps = 5,
+  verbose = FALSE,
+  root_options = list(atol=1e-4)
+)
+
+knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
+
+## ---- fig.width = 6, fig.height = 5--------------------------------------
+plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
+plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
+

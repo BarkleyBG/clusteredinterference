@@ -113,10 +113,10 @@ Brian G. Barkley, \email{BarkleyBG@unc.edu}.
 
   Some of the plumbing functions for estimating the sandwich variance matrix
   were adapted from Bradley Saul's
-  \href{\url{https://cran.r-project.org/package=geex}}{\pkg{geex}} package.
+  \href{https://cran.r-project.org/package=geex}{\pkg{geex}} package.
 
   Some of the plumbing functions for the logistic mixed model likelihood were
   adapted from Bradley Saul's
-  \href{\url{https://cran.r-project.org/package=inferference}}{\pkg{inferference}}
+  \href{https://cran.r-project.org/package=inferference}{\pkg{inferference}}
    package.
 }
