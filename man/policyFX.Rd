@@ -2,8 +2,8 @@
 % Please edit documentation in R/Estimator.R
 \name{policyFX}
 \alias{policyFX}
-\title{Estimate Causal Effects ("FX") of Population Treatment Policies Assuming
-Clustered Interference}
+\title{Estimate Causal Effects \emph{("FX")} of Population Treatment Policies
+Assuming Clustered Interference}
 \usage{
 policyFX(data, formula, alphas, k_samps = NULL, ..., verbose = FALSE,
   root_options = NULL, nAGQ = 2, return_matrices = FALSE)
@@ -16,7 +16,7 @@ policyFX(data, formula, alphas, k_samps = NULL, ..., verbose = FALSE,
 \item{formula}{The \code{formula} defines the different components of the
 method. The components are specified by \code{outcome | treatment ~
 f(covariates) + (1|cluster_id) | cluster_id}. The middle component is
-passed to \code{\link{glmer}}, so \code{treatment ~ f(covariates) +
+passed to \code{\link[=lme4]{glmer}}, so \code{treatment ~ f(covariates) +
 (1|cluster_id)} specifies the model form for the propensity score (i.e.,
 treatment) model. See Details.}
 
@@ -28,24 +28,25 @@ counterfactual probabilities (i.e., \eqn{\omega(A,N,\alpha)}). Setting to 0
 avoids approximation at the cost of increased computation time. Recommended
 to set <= 5.}
 
-\item{...}{The dots argument. The user may supply their own \code{target_grid}
-through the dots argument. The \code{target_grid} can be made through
-exported function \code{\link{makeTargetGrid}}}
+\item{...}{The dots argument. The user may supply their own
+\code{target_grid} through the dots argument. The \code{target_grid} can be
+made through exported function \code{\link{makeTargetGrid}}}
 
 \item{verbose}{A Boolean on whether to print output to \code{stderr}.
 Defaults to FALSE.}
 
-\item{root_options}{These are passed to \code{\link{multiroot}} function.}
+\item{root_options}{These are passed to \code{\link[=rootSolve]{multiroot}}
+function.}
 
 \item{nAGQ}{This is the number of Adaptive Gaussian Quadrature points used in
-the \code{\link{glmer}} model fitting computation. Defaults to 2. It is
-recommended to use more than 1.}
+the \code{\link[=lme4]{glmer}} model fitting computation. Defaults to 2. It
+is recommended to use more than 1.}
 
 \item{return_matrices}{A Boolean on whether to return the "bread" and "meat"
 matrices in the sandwich variance. Defaults to \code{FALSE}.}
 }
 \value{
-A \code{list} object including: \itemize{ \item \code{estimates}: A
+A \code{list} object including: \enumerate{ \item \code{estimates}: A
   tidy \code{data.frame} with columns \code{estimand}, \code{estimate},
   \code{var}, \code{se}, \code{LCI} and \code{UCI} for 95\% CI's, and more
   information. \item \code{parameters}: An untidy \code{list} of the point
@@ -58,17 +59,22 @@ A \code{list} object including: \itemize{ \item \code{estimates}: A
 }
 \description{
 This function implements the estimators from Barkley et al (201X) for
-observational studies when \bold{clustered interference} is assumed These
-estimators are based on inverse probability-weighting by the propensity score
-for treatment (IPTW) to estimate causal effects of counterfactual policies of
-interest (i.e., \code{policyFX}) when clustered interference is assumed. The
-policies of interest correspond to counterfactual scenarios in which
-treatment may be correlated within clusters. This method estimates causal
-contrasts of these policies by estimating the counterfactual treatment
-probabilities; taking the correlation structures into account requires heavy
-computational resources, so the user should be patient.
+observational studies when \strong{clustered interference} is assumed.
+Clustered interference is also often known as "partial" interference.
 }
 \details{
+These estimators are based on inverse probability-weighting by the propensity
+score for treatment (IPTW) to estimate causal effects of counterfactual
+policies of interest (i.e., \emph{"policy effects"}) when clustered
+interference is assumed. The policies of interest correspond to
+counterfactual scenarios in which treatment may be correlated within
+clusters.
+
+This method estimates causal contrasts of these policies by estimating the
+counterfactual treatment probabilities; taking the correlation structures
+into account requires heavy computational resources, so the user should be
+patient.
+
 The modeling formula for the propensity score (i.e., treatment)
   model is specified via the \code{formula} formal argument. An example of a
   model logit-linear fixed effects would be \code{Y | A ~ X1 + X2 + (1 |
@@ -76,6 +82,41 @@ The modeling formula for the propensity score (i.e., treatment)
   interaction term is \code{Y | A ~ X1 + X2 + X1:X2 + (1 | cluster_ID) |
   cluster_ID}.
 }
+\examples{
+\donttest{
+data("toy_data", "clusteredinterference")
+causal_fx <- policyFX(
+  data = toy_data,
+  formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
+  alphas = c(.3, .5),
+  k_samps = 1,
+  verbose = FALSE
+)}
+}
+\references{
+Bradley Saul and Michael Hudgens (2017). \emph{A Recipe for
+  {inferference}: Start with Causal Inference. Add Interference. Mix Well
+  with R.} Journal of Statistical Software. Conditionally accepted for
+  publication. \url{https://cran.r-project.org/package=inferference}
+
+  Bradley Saul (2017). \emph{geex: An API for M-Estimation}.
+  \url{https://github.com/bsaul/geex}, \url{https://bsaul.github.io/geex/}.
+  \url{https://cran.r-project.org/package=geex}
+}
+\seealso{
+Please see the main package vignette at \code{vignette("intro",
+  "clusteredinterference")}. It describes the necessary arguments, as well as
+  some extra functionality.
+}
 \author{
-Brian G. Barkley, \email{BarkleyBG@unc.edu}
+Brian G. Barkley, \email{BarkleyBG@unc.edu}.
+
+  Some of the plumbing functions for estimating the sandwich variance matrix
+  were adapted from Bradley Saul's
+  \href{\url{https://cran.r-project.org/package=geex}}{\pkg{geex}} package.
+
+  Some of the plumbing functions for the logistic mixed model likelihood were
+  adapted from Bradley Saul's
+  \href{\url{https://cran.r-project.org/package=inferference}}{\pkg{inferference}}
+   package.
 }
