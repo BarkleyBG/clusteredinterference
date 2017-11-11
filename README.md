@@ -26,7 +26,7 @@ devtools::install_github("BarkleyBG/clusteredinterference")
 
 This package has been checked on several operating systems with package.
 
-| --- Platform --- | -- Latest succesful check -- | |macOS 10.11 El Capitan, R-release (experimental)| v0.1 | |Windows Server 2008 R2 SP1, R-release, 32/64 bit | v0.1|
+| --- Platform --- | -- Latest succesful check -- | |macOS 10.11 El Capitan, R-release (experimental)| v0.3.0 | |Windows Server 2008 R2 SP1, R-release, 32/64 bit | v0.3.0|
 
 Load this package
 -----------------
@@ -70,12 +70,12 @@ knitr::kable(causal_fx$estimates, digits = 3)
 
 | estimand       |  estimate|    var|     se|     LCI|     UCI|  alpha1|  alpha2|  trt| estimand\_type | effect\_type |  k\_samps|
 |:---------------|---------:|------:|------:|-------:|-------:|-------:|-------:|----:|:---------------|:-------------|---------:|
-| mu(0.15)       |     0.699|  0.008|  0.091|   0.521|   0.877|    0.15|      NA|   NA| mu             | outcome      |         1|
-| mu(0.25)       |     0.667|  0.005|  0.072|   0.526|   0.808|    0.25|      NA|   NA| mu             | outcome      |         1|
-| mu0(0.15)      |     0.716|  0.009|  0.093|   0.533|   0.899|    0.15|      NA|    0| mu0            | outcome      |         1|
-| mu0(0.25)      |     0.688|  0.006|  0.079|   0.532|   0.843|    0.25|      NA|    0| mu0            | outcome      |         1|
-| mu1(0.15)      |     0.162|  0.002|  0.043|   0.078|   0.246|    0.15|      NA|    1| mu1            | outcome      |         1|
-| mu1(0.25)      |     0.244|  0.003|  0.054|   0.139|   0.349|    0.25|      NA|    1| mu1            | outcome      |         1|
+| mu(0.15)       |     0.700|  0.008|  0.090|   0.523|   0.876|    0.15|      NA|   NA| mu             | outcome      |         1|
+| mu(0.25)       |     0.667|  0.005|  0.071|   0.529|   0.806|    0.25|      NA|   NA| mu             | outcome      |         1|
+| mu0(0.15)      |     0.717|  0.009|  0.092|   0.536|   0.898|    0.15|      NA|    0| mu0            | outcome      |         1|
+| mu0(0.25)      |     0.688|  0.006|  0.078|   0.535|   0.841|    0.25|      NA|    0| mu0            | outcome      |         1|
+| mu1(0.15)      |     0.162|  0.002|  0.043|   0.077|   0.246|    0.15|      NA|    1| mu1            | outcome      |         1|
+| mu1(0.25)      |     0.244|  0.003|  0.054|   0.138|   0.349|    0.25|      NA|    1| mu1            | outcome      |         1|
 | CE(0.15,0.15)  |     0.000|  0.000|  0.000|   0.000|   0.000|    0.15|    0.15|   NA| CE             | contrast     |         1|
 | CE(0.25,0.15)  |    -0.032|  0.001|  0.028|  -0.086|   0.022|    0.25|    0.15|   NA| CE             | contrast     |         1|
 | CE(0.15,0.25)  |     0.032|  0.001|  0.028|  -0.022|   0.086|    0.15|    0.25|   NA| CE             | contrast     |         1|
@@ -92,7 +92,16 @@ knitr::kable(causal_fx$estimates, digits = 3)
 Vignette
 --------
 
-The vignette provides more information on the formal arguments.
+The vignette provides more information on the formal arguments:
+
+``` r
+browseVignettes("clusteredinterference")
+```
+
+News and version history
+------------------------
+
+Changes and version history are included in the `NEWS.md` file.
 
 Acknowledgments
 ---------------

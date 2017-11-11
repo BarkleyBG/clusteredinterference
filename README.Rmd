@@ -74,7 +74,16 @@ knitr::kable(causal_fx$estimates, digits = 3)
 
 ## Vignette
 
-The vignette provides more information on the formal arguments.
+The vignette provides more information on the formal arguments:
+
+```{r, eval = FALSE}
+browseVignettes("clusteredinterference")
+```
+
+
+## News and version history
+
+Changes and version history are included in the `NEWS.md` file.
 
 
 ## Acknowledgments
