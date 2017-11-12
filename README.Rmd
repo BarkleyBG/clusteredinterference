@@ -36,7 +36,8 @@ devtools::install_github("BarkleyBG/clusteredinterference")
 
 This package has been checked on several operating systems with \href{https://github.com/r-hub/rhub}{`rhub`} package. 
 
-| --- Platform --- | -- Latest succesful check -- | 
+| Platform  | Latest succesful check |
+| ----- | -----|
 |macOS 10.11 El Capitan, R-release (experimental)| v0.3.0 |
 |Windows Server 2008 R2 SP1, R-release, 32/64 bit | v0.3.0|
 
