@@ -1,3 +1,8 @@
+
+# clusteredinterference 0.3.1
+
+* Changed character strings for estimands in the estimator output.
+
 # clusteredinterference 0.3.0
 
 * Added a `NEWS.md` file to track changes to the package.

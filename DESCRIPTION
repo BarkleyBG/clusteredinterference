@@ -1,15 +1,15 @@
 Package: clusteredinterference
 Type: Package
-Date: 2017-11-09
+Date: 2017-11-12
 Title: Causal Effects from Observational Studies with Clustered Interference
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: person("Brian", "Barkley", email = "BarkleyBG@unc.edu",
     role = c("aut", "cre"))
 Description: Estimating causal effects from observational studies targeting
     new estimands for treatment policies assuming clustered (or
     partial) interference, as discussed by Barkley et al. (in submission). 
-    The key implementation is estimating the distribution of treatment in 
-    counterfactual scenarios in which the policies are implemented.
+    This IPW method estimates the distribution of treatment in counterfactual 
+    scenarios in which the policies are implemented.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true

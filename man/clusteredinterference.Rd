@@ -8,7 +8,7 @@
 \description{
 \pkg{clusteredinterference} implements the estimators from Barkley et al.,
 (201X), \emph{Causal Inference from Observational Studies with Clustered
-Interference}. These are inverse probability of treatment-weighted estiamtors
+Interference}. These are inverse probability of treatment-weighted estimators
 for estimating the causal effects on outcomes of population-level treatment
 policies.
 }

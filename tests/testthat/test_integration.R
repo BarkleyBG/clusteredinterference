@@ -11,11 +11,16 @@ pfx <- do.call( policyFX, args = est_args )
 new_ests <- pfx$estimates
 old_ests <- baseline_effects$estimates
 
-OE2 <- old_ests[is.na(old_ests$trt),]
-NE2 <- new_ests[is.na(new_ests$trt), ]
+for (ii in 1:nrow(old_ests)) {
+  old_ests$estimand[[ii]] <- renameEstimand(old_ests$estimand[[ii]])
+  # old_ests$estimand_type[[ii]] <- renameEstimand(old_ests$estimand_type[[ii]])
+}
 
-OEtrt <- old_ests[!is.na(old_ests$trt),]
-NEtrt <- new_ests[!is.na(new_ests$trt), ]
+# OE2 <- old_ests[is.na(old_ests$trt),]
+# NE2 <- new_ests[is.na(new_ests$trt), ]
+#
+# OEtrt <- old_ests[!is.na(old_ests$trt),]
+# NEtrt <- new_ests[!is.na(new_ests$trt), ]
 # NE2[, -(1:7)]
 
 # testthat::test_that(
