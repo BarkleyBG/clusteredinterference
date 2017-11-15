@@ -59,6 +59,7 @@ Estimation
 Estimation is carried out with one function:
 
 ``` r
+set.seed(1113)
 causal_fx <- policyFX(
   data = toy_data,
   formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
@@ -73,19 +74,19 @@ knitr::kable(causal_fx$estimates, digits = 3)
 
 | estimand       |  estimate|    var|     se|     LCI|     UCI|  alpha1|  alpha2|  trt| estimand\_type | effect\_type |  k\_samps|
 |:---------------|---------:|------:|------:|-------:|-------:|-------:|-------:|----:|:---------------|:-------------|---------:|
-| mu(0.15)       |     0.699|  0.008|  0.090|   0.521|   0.876|    0.15|      NA|   NA| mu             | outcome      |         1|
-| mu(0.25)       |     0.666|  0.005|  0.072|   0.525|   0.808|    0.25|      NA|   NA| mu             | outcome      |         1|
-| mu0(0.15)      |     0.716|  0.009|  0.093|   0.533|   0.898|    0.15|      NA|    0| mu0            | outcome      |         1|
-| mu0(0.25)      |     0.686|  0.006|  0.079|   0.532|   0.841|    0.25|      NA|    0| mu0            | outcome      |         1|
-| mu1(0.15)      |     0.162|  0.002|  0.043|   0.077|   0.246|    0.15|      NA|    1| mu1            | outcome      |         1|
-| mu1(0.25)      |     0.244|  0.003|  0.054|   0.138|   0.350|    0.25|      NA|    1| mu1            | outcome      |         1|
+| mu(0.15)       |     0.699|  0.008|  0.089|   0.523|   0.874|    0.15|      NA|   NA| mu             | outcome      |         1|
+| mu(0.25)       |     0.666|  0.005|  0.070|   0.529|   0.804|    0.25|      NA|   NA| mu             | outcome      |         1|
+| mu0(0.15)      |     0.716|  0.008|  0.092|   0.536|   0.895|    0.15|      NA|    0| mu0            | outcome      |         1|
+| mu0(0.25)      |     0.687|  0.006|  0.078|   0.535|   0.839|    0.25|      NA|    0| mu0            | outcome      |         1|
+| mu1(0.15)      |     0.162|  0.002|  0.043|   0.078|   0.246|    0.15|      NA|    1| mu1            | outcome      |         1|
+| mu1(0.25)      |     0.244|  0.003|  0.054|   0.139|   0.349|    0.25|      NA|    1| mu1            | outcome      |         1|
 | OE(0.15,0.15)  |     0.000|  0.000|  0.000|   0.000|   0.000|    0.15|    0.15|   NA| OE             | contrast     |         1|
-| OE(0.25,0.15)  |    -0.032|  0.001|  0.028|  -0.087|   0.022|    0.25|    0.15|   NA| OE             | contrast     |         1|
-| OE(0.15,0.25)  |     0.032|  0.001|  0.028|  -0.022|   0.087|    0.15|    0.25|   NA| OE             | contrast     |         1|
+| OE(0.25,0.15)  |    -0.032|  0.001|  0.028|  -0.086|   0.022|    0.25|    0.15|   NA| OE             | contrast     |         1|
+| OE(0.15,0.25)  |     0.032|  0.001|  0.028|  -0.022|   0.086|    0.15|    0.25|   NA| OE             | contrast     |         1|
 | OE(0.25,0.25)  |     0.000|  0.000|  0.000|   0.000|   0.000|    0.25|    0.25|   NA| OE             | contrast     |         1|
 | SE0(0.15,0.15) |     0.000|  0.000|  0.000|   0.000|   0.000|    0.15|    0.15|    0| SE0            | contrast     |         1|
-| SE0(0.25,0.15) |    -0.029|  0.001|  0.028|  -0.085|   0.026|    0.25|    0.15|    0| SE0            | contrast     |         1|
-| SE0(0.15,0.25) |     0.029|  0.001|  0.028|  -0.026|   0.085|    0.15|    0.25|    0| SE0            | contrast     |         1|
+| SE0(0.25,0.15) |    -0.029|  0.001|  0.028|  -0.084|   0.027|    0.25|    0.15|    0| SE0            | contrast     |         1|
+| SE0(0.15,0.25) |     0.029|  0.001|  0.028|  -0.027|   0.084|    0.15|    0.25|    0| SE0            | contrast     |         1|
 | SE0(0.25,0.25) |     0.000|  0.000|  0.000|   0.000|   0.000|    0.25|    0.25|    0| SE0            | contrast     |         1|
 | SE1(0.15,0.15) |     0.000|  0.000|  0.000|   0.000|   0.000|    0.15|    0.15|    1| SE1            | contrast     |         1|
 | SE1(0.25,0.15) |     0.082|  0.000|  0.013|   0.057|   0.107|    0.25|    0.15|    1| SE1            | contrast     |         1|
@@ -104,7 +105,7 @@ browseVignettes("clusteredinterference")
 News and version history
 ------------------------
 
-Changes and version history are included in the `NEWS.md` file.
+A changelog is found in the `NEWS.md` file. Version history is also tracked by the [release tags](https://github.com/BarkleyBG/clusteredinterference/releases) for this GitHub repo.
 
 Acknowledgments
 ---------------

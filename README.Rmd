@@ -60,6 +60,7 @@ head(toy_data)
 Estimation is carried out with one function:
 
 ```{r} 
+set.seed(1113)
 causal_fx <- policyFX(
   data = toy_data,
   formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
@@ -84,7 +85,7 @@ browseVignettes("clusteredinterference")
 
 ## News and version history
 
-Changes and version history are included in the `NEWS.md` file.
+A changelog is found in the `NEWS.md` file. Version history is also tracked by the [release tags](https://github.com/BarkleyBG/clusteredinterference/releases) for this GitHub repo.
 
 
 ## Acknowledgments

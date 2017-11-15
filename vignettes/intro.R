@@ -5,6 +5,7 @@ library(clusteredinterference)
 data("toy_data") 
 
 ## ------------------------------------------------------------------------
+set.seed(1113)
 causal_fx <- policyFX(
   data = toy_data,
   formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,
