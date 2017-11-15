@@ -3,7 +3,7 @@ About the `clusteredinterference` package
 
 This package implements the estimator proposed in Barkley et al. (in preparation), *Causal Inference from Observational Studies with Clustered Interference*.
 
-A version of this manuscript is available [on arXiv](https://arxiv.org/abs/1711.04834).
+A version of this manuscript is available [on arXiv at 1711.04834](https://arxiv.org/abs/1711.04834).
 
 About the method
 ----------------
