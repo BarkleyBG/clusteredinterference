@@ -14,9 +14,11 @@ knitr::opts_chunk$set(
 
 # About the `clusteredinterference` package
 
-This package implements the estimator proposed in Barkley et al. (201X), _Causal Inference from Observational Studies with Clustered Interference_. 
+This package implements the estimator proposed in Barkley et al. (in preparation), _Causal Inference from Observational Studies with Clustered Interference_. 
 
-The manuscript is in submission. 
+A version of this manuscript is available [on arXiv](https://arxiv.org/abs/1711.04834).
+
+
 
 ## About the method
 
