@@ -26,5 +26,6 @@ Suggests:
     testthat,
     rprojroot,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 VignetteBuilder: knitr

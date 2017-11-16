@@ -12,6 +12,9 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![Travis-CI Build Status](https://travis-ci.org/BarkleyBG/clusteredinterference.svg?branch=master)](https://travis-ci.org/BarkleyBG/clusteredinterference)
+[![Coverage Status](https://img.shields.io/codecov/c/github/BarkleyBG/clusteredinterference/master.svg)](https://codecov.io/github/BarkleyBG/clusteredinterference?branch=master)
+
 # About the `clusteredinterference` package
 
 This package implements the estimators proposed in [Barkley et al. (2017), _Causal Inference from Observational Studies with Clustered Interference_.](https://arxiv.org/abs/1711.04834)

@@ -4,3 +4,5 @@
 ^README-.*\.png$
 ^CONDUCT\.md$
 ^scratch$
+^\.travis\.yml$
+^codecov\.yml$

@@ -1,3 +1,5 @@
+[![Travis-CI Build Status](https://travis-ci.org/BarkleyBG/clusteredinterference.svg?branch=master)](https://travis-ci.org/BarkleyBG/clusteredinterference) [![Coverage Status](https://img.shields.io/codecov/c/github/BarkleyBG/clusteredinterference/master.svg)](https://codecov.io/github/BarkleyBG/clusteredinterference?branch=master)
+
 About the `clusteredinterference` package
 =========================================
 
