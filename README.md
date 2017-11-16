@@ -16,17 +16,19 @@ In causal inference, when one individual's treatment may affect another individu
 
 A relaxation of the assumption of "no interference" is to assume that individuals may be partitioned into distinct clusters of individuals (e.g., households, or classrooms, etc.) such that there may be interference within the clusters, but not between the clusters. Historically, this assumption has been referred to as **partial interference** after Sobel (2006).
 
-We introduce the terminology **clustered interference** to refer to this same assumption. To us, it is a descriptive moniker for the assumption, perhaps clarifying the restriction of interference to clusters.
+[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) introduces the terminology **clustered interference** to refer to this same assumption. This phrase may be sufficiently descriptive of the underlying assumption, and perhaps clarifies the presumed restriction of interference to clusters.
 
 About the method
-----------------
+================
 
-[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) propose new causal estimands for defining treatment effects in the context of observational studies when there may be interference or spillover effects between units in the same cluster. The manuscript also introduces IPTW estimators for thos estimands, which are implemented in `clusteredinterference`.
+[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) proposes new causal estimands for defining treatment effects in the context of observational studies when there may be interference or spillover effects between units in the same cluster. The manuscript also introduces IPTW estimators for thos estimands, which are implemented in `clusteredinterference`.
 
 The manuscript
 --------------
 
-A version of this manuscript is available [on arXiv at 1711.04834](https://arxiv.org/abs/1711.04834).
+A version of this manuscript is available [on arXiv at 1711.04834](https://arxiv.org/abs/1711.04834):
+
+Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal Inference from Observational Studies with Clustered Interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
 
 Using the `clusteredinterference` package
 =========================================
@@ -121,17 +123,19 @@ browseVignettes("clusteredinterference")
 ```
 
 News and version history
-------------------------
+========================
 
 A changelog is found in the `NEWS.md` file. Version history is also tracked by the [release tags](https://github.com/BarkleyBG/clusteredinterference/releases) for this GitHub repo.
 
 References and acknowledgments
-------------------------------
+==============================
+
+The manuscript relating to `clusteredinterference` is: - Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal Inference from Observational Studies with Clustered Interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
 
 -   The terminology of **partial interference** is attributed to Sobel (2006):
-    -   Sobel, M. E. (2006). *What do randomized studies of housing mobility demonstrate? Causal inference in the face of interference.* Journal of the American Statistical Association, 101(476), 1398-1407. [doi: 10.1198/016214506000000636](http://dx.doi.org/10.1198/016214506000000636)
+    -   Sobel, M. E. (2006). What do randomized studies of housing mobility demonstrate? Causal inference in the face of interference. *Journal of the American Statistical Association*, 101(476), 1398-1407. [doi: 10.1198/016214506000000636](http://dx.doi.org/10.1198/016214506000000636)
 -   Please see the [`inferference`](https://cran.r-project.org/package=inferference) package for related estimators from the following articles:
-    -   Perez‐Heydrich, C., Hudgens, M. G., Halloran, M. E., Clemens, J. D., Ali, M., & Emch, M. E. (2014). Assessing effects of cholera vaccination in the presence of interference. Biometrics, 70(3), 731-741. [doi: 10.1111/biom.12184](doi.wiley.com/10.1111/biom.12184)
-    -   Tchetgen, E. J. T., & VanderWeele, T. J. (2012). On causal inference in the presence of interference. Statistical methods in medical research, 21(1), 55-75. [doi: 10.1177/0962280210386779](https://doi.org/10.1177/0962280210386779)
+    -   Perez‐Heydrich, C., Hudgens, M. G., Halloran, M. E., Clemens, J. D., Ali, M., & Emch, M. E. (2014). Assessing effects of cholera vaccination in the presence of interference. *Biometrics*, 70(3), 731-741. [doi: 10.1111/biom.12184](doi.wiley.com/10.1111/biom.12184)
+    -   Tchetgen, E. J. T., & VanderWeele, T. J. (2012). On causal inference in the presence of interference. *Statistical Methods in Medical Research*, 21(1), 55-75. [doi: 10.1177/0962280210386779](https://doi.org/10.1177/0962280210386779)
 -   An earlier version of the methods implemented in `clusteredinterference` was implemented using the [`geex`](https://github.com/bsaul/geex) package for estimating equations.
 -   Thanks to [Bradley Saul](https://github.com/bsaul) for [`inferference`](https://cran.r-project.org/package=inferference), [`geex`](https://github.com/bsaul/geex), and for comments and suggestions that were helpful in the creation of `clusteredinterference`.
