@@ -13,7 +13,7 @@ testthat::test_that(
   testthat::expect_equal(
     object =  CFBI_MCFP_list,
     expected = CFBI_MCFP_orig,
-    tolerance = 1e-9,
+    tolerance = helper_tol,
     check.attributes = TRUE
   )
 )

@@ -84,6 +84,7 @@ The modeling formula for the propensity score (i.e., treatment)
 }
 \examples{
 \donttest{
+## not run
 data("toy_data", "clusteredinterference")
 causal_fx <- policyFX(
   data = toy_data,

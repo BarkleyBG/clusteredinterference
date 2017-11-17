@@ -16,7 +16,7 @@ testthat::test_that(
   testthat::expect_equal(
     object =  CFBI_alpha_solved,
     expected = CFBI_alpha_baseline,
-    tolerance = 1e-9,
+    tolerance = helper_tol,
     check.attributes = TRUE
   )
 )

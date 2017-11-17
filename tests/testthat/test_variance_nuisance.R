@@ -12,7 +12,7 @@ testthat::test_that(
   testthat::expect_equal(
     object =  AB_nuisance_list,
     expected = AB_nuisance_list_orig,
-    tolerance = 1e-9,
+    tolerance = helper_tol,
     check.attributes = TRUE
   )
 )

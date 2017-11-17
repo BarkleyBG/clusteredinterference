@@ -18,7 +18,7 @@ testthat::test_that(
   testthat::expect_equal(
     object =  starting_dfm,
     expected = starting_dfm_orig,
-    tolerance = 1e-9,
+    tolerance = helper_tol,
     check.attributes = TRUE
   )
 )
