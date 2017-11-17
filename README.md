@@ -28,7 +28,7 @@ The manuscript
 
 A version of this manuscript is available [on arXiv at 1711.04834](https://arxiv.org/abs/1711.04834):
 
-Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal Inference from Observational Studies with Clustered Interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
+Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal inference from observational studies with clustered interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
 
 Using the `clusteredinterference` package
 =========================================
@@ -36,7 +36,7 @@ Using the `clusteredinterference` package
 Install the package
 -------------------
 
-You'll need to use the `devtools` package to install :
+You'll need to use the `devtools` package to install [https://github.com/BarkleyBG/clusteredinterference](from%20GitHub):
 
 ``` r
 devtools::install_github("BarkleyBG/clusteredinterference")
@@ -44,7 +44,7 @@ devtools::install_github("BarkleyBG/clusteredinterference")
 
 ### Architectures supported
 
-This package has been checked on several operating systems with package:
+In addition to the unit tests included in this package, this package has been checked on several operating systems with the [https://github.com/r-hub/rhub](%60rhub%60) package:
 
 <table style="width:25%;">
 <colgroup>
@@ -55,10 +55,10 @@ This package has been checked on several operating systems with package:
 </colgroup>
 <thead>
 <tr class="header">
-<th>-Architecture-</th>
-<th>-Platform-</th>
-<th>-R version-</th>
-<th>-Latest succesful check-</th>
+<th>Architecture</th>
+<th>Platform</th>
+<th>R version</th>
+<th>Latest succesful check</th>
 </tr>
 </thead>
 <tbody>
@@ -168,8 +168,8 @@ A changelog is found in the `NEWS.md` file. Version history is also tracked by t
 References and acknowledgments
 ==============================
 
-The manuscript relating to `clusteredinterference` is: - Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal Inference from Observational Studies with Clustered Interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
-
+-   The manuscript introducing the methods in `clusteredinterference` is:
+    -   Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal inference from observational studies with clustered interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
 -   The terminology of **partial interference** is attributed to Sobel (2006):
     -   Sobel, M. E. (2006). What do randomized studies of housing mobility demonstrate? Causal inference in the face of interference. *Journal of the American Statistical Association*, 101(476), 1398-1407. [doi: 10.1198/016214506000000636](http://dx.doi.org/10.1198/016214506000000636)
 -   Please see the [`inferference`](https://cran.r-project.org/package=inferference) package for related estimators from the following articles:
