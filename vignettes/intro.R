@@ -48,3 +48,10 @@ knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
 plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
 plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
 
+## ------------------------------------------------------------------------
+# Returns the specified formula, coerced to a Formula object
+causal_fx$formula
+# causal_fx$model is a glmerMod S4 object
+causal_fx$model@call
+lme4::getME(causal_fx$model, c("beta", "theta"))
+

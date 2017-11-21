@@ -62,7 +62,7 @@
 #'   Some of the plumbing functions for the logistic mixed model likelihood were
 #'   adapted from Bradley Saul's
 #'   \href{https://cran.r-project.org/package=inferference}{\pkg{inferference}}
-#'    package.
+#'   package.
 #'
 #' @return A \code{list} object including: \enumerate{ \item \code{estimates}: A
 #'   tidy \code{data.frame} with columns \code{estimand}, \code{estimate},
@@ -73,7 +73,9 @@
 #'   is a \code{list} object for the "bread" and "meat" matrices in the sandwich
 #'   variance calculations for each estimand. Otherwise, it is a \code{list}
 #'   object with length 0. \item \code{propensity_scores}: The estimated
-#'   propensity scores for each cluster. }
+#'   propensity scores for each cluster. \item \code{model}: The treatment model
+#'   object. \item \code{formula}: The full formula argument provided, after
+#'   coercion to a \code{\link[=Formula]{Formula}} object}
 #'
 #' @seealso Please see the main package vignette at \code{vignette("intro",
 #'   "clusteredinterference")}. It describes the necessary arguments, as well as
@@ -89,7 +91,7 @@
 #'   \url{https://cran.r-project.org/package=geex}
 #'
 #' @examples
-#' \donttest{
+#' \dontrun{
 #' ## not run
 #' data("toy_data", "clusteredinterference")
 #' causal_fx <- policyFX(
@@ -250,7 +252,9 @@ policyFX <- function(
     estimates = tidy_estimates,
     parameters = parameters,
     variance_matrices = variance_matrices,
-    propensity_scores = targets_and_cps$prop_scores
+    propensity_scores = targets_and_cps$prop_scores,
+    model = glmer_fit,
+    formula = formule
   )
 
 }

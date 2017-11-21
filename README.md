@@ -111,8 +111,8 @@ head(toy_data)
 #> 6       0         0          2 42.21215 8.023865
 ```
 
-Estimation
-----------
+Example
+-------
 
 Estimation is carried out with one function:
 
@@ -125,6 +125,8 @@ causal_fx <- policyFX(
   k_samps = 1
 )
 ```
+
+The estimates of causal estimands are output in a tidy dataframe:
 
 ``` r
 knitr::kable(causal_fx$estimates, digits = 3)
@@ -150,6 +152,25 @@ knitr::kable(causal_fx$estimates, digits = 3)
 | SE1(0.25,0.15) |     0.082|  0.000|  0.013|   0.057|   0.107|    0.25|    0.15|    1| SE1            | contrast     |         1|
 | SE1(0.15,0.25) |    -0.082|  0.000|  0.013|  -0.107|  -0.057|    0.15|    0.25|    1| SE1            | contrast     |         1|
 | SE1(0.25,0.25) |     0.000|  0.000|  0.000|   0.000|   0.000|    0.25|    0.25|    1| SE1            | contrast     |         1|
+
+Note that `Treatment ~ Age + Distance + (1 | Cluster_ID)` in the the middle of the `formula` argument is sent to `lme4::glmer()` to specify the form of the (logit-link binomial) treatment model. For example, compare the following:
+
+``` r
+# Returns the specified formula, coerced to a Formula object
+causal_fx$formula
+#> Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID
+# causal_fx$model is a glmerMod S4 object
+causal_fx$model@call
+#> lme4::glmer(formula = Treatment ~ Age + Distance + (1 | Cluster_ID), 
+#>     data = data, family = stats::binomial, nAGQ = nAGQ)
+lme4::getME(causal_fx$model, c("beta", "theta"))
+#> $beta
+#> [1] -1.44608710 -0.00850977  0.26096895
+#> 
+#> $theta
+#> Cluster_ID.(Intercept) 
+#>               1.180325
+```
 
 Vignette
 --------

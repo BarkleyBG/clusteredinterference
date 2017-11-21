@@ -12,7 +12,7 @@
 
 <meta name="author" content="Brian G. Barkley" />
 
-<meta name="date" content="2017-11-14" />
+<meta name="date" content="2017-11-21" />
 
 <title>Introduction to the clusteredinterference package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to the <code>clusteredinterference</code> package</h1>
 <h4 class="author"><em>Brian G. Barkley</em></h4>
-<h4 class="date"><em>2017-11-14</em></h4>
+<h4 class="date"><em>2017-11-21</em></h4>
 
 
 
@@ -214,6 +214,7 @@ knitr<span class="op">::</span><span class="kw">kable</span>(causal_fx<span clas
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outcome <span class="op">|</span><span class="st"> </span>treatment <span class="op">~</span><span class="st"> </span>predictors and random intercept <span class="op">|</span><span class="st"> </span>clustering specification</code></pre></div>
 <p>Note that the middle section is passed to <code>glmer()</code> to fit the mixed effects model, so this is how to specify the modeling formula.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID)</code></pre></div>
+<p>See below for the model output.</p>
 </div>
 </div>
 <div id="formal-arguments-with-defaults" class="section level3">
@@ -365,9 +366,31 @@ knitr<span class="op">::</span><span class="kw">kable</span>(causal_fx2<span cla
 </tr>
 </tbody>
 </table>
+<div id="plotting" class="section level4">
+<h4>Plotting</h4>
+<p>The tidy dataframe <code>estimates</code> can be easily used for plotting:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotdat &lt;-<span class="st"> </span>causal_fx2<span class="op">$</span>estimates[causal_fx2<span class="op">$</span>estimates<span class="op">$</span>estimand_type<span class="op">==</span><span class="st">&quot;mu&quot;</span>,]
 <span class="kw">plot</span>(<span class="dt">x =</span> plotdat<span class="op">$</span>alpha1, <span class="dt">y =</span> plotdat<span class="op">$</span>estimate, <span class="dt">main =</span> <span class="st">&quot;Estimated Population Means&quot;</span>)</code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="treatment-model" class="section level4">
+<h4>Treatment model</h4>
+<p>As mentioned above, the treatment model is specified via the <code>formula</code> argument. For example, compare:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Returns the specified formula, coerced to a Formula object</span>
+causal_fx<span class="op">$</span>formula</code></pre></div>
+<pre><code>## Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># causal_fx$model is a glmerMod S4 object</span>
+causal_fx<span class="op">$</span>model<span class="op">@</span>call</code></pre></div>
+<pre><code>## lme4::glmer(formula = Treatment ~ Age + Distance + (1 | Cluster_ID), 
+##     data = data, family = stats::binomial, nAGQ = nAGQ)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw">getME</span>(causal_fx<span class="op">$</span>model, <span class="kw">c</span>(<span class="st">&quot;beta&quot;</span>, <span class="st">&quot;theta&quot;</span>))</code></pre></div>
+<pre><code>## $beta
+## [1] -1.44608710 -0.00850977  0.26096895
+## 
+## $theta
+## Cluster_ID.(Intercept) 
+##               1.180325</code></pre>
+</div>
 </div>
 </div>
 

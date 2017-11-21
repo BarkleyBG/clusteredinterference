@@ -1,3 +1,6 @@
+# clusteredinterference 0.3.2
+
+* Added `model` and `formula` items to output list
 
 # clusteredinterference 0.3.1
 

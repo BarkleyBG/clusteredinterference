@@ -55,7 +55,9 @@ A \code{list} object including: \enumerate{ \item \code{estimates}: A
   is a \code{list} object for the "bread" and "meat" matrices in the sandwich
   variance calculations for each estimand. Otherwise, it is a \code{list}
   object with length 0. \item \code{propensity_scores}: The estimated
-  propensity scores for each cluster. }
+  propensity scores for each cluster. \item \code{model}: The treatment model
+  object. \item \code{formula}: The full formula argument provided, after
+  coercion to a \code{\link[=Formula]{Formula}} object}
 }
 \description{
 This function implements the estimators from Barkley et al (201X) for
@@ -83,7 +85,7 @@ The modeling formula for the propensity score (i.e., treatment)
   cluster_ID}.
 }
 \examples{
-\donttest{
+\dontrun{
 ## not run
 data("toy_data", "clusteredinterference")
 causal_fx <- policyFX(
@@ -119,5 +121,5 @@ Brian G. Barkley, \email{BarkleyBG@unc.edu}.
   Some of the plumbing functions for the logistic mixed model likelihood were
   adapted from Bradley Saul's
   \href{https://cran.r-project.org/package=inferference}{\pkg{inferference}}
-   package.
+  package.
 }

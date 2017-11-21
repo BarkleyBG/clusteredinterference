@@ -68,6 +68,7 @@ Note that the middle section is passed to `glmer()` to fit the mixed effects mod
 Treatment ~ Age + Distance + (1 | Cluster_ID)
 ```
 
+See below for the model output.
 
 ### Formal arguments with defaults
 
@@ -121,9 +122,26 @@ causal_fx2 <- policyFX(
 knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
 ```
 
+#### Plotting 
+
+The tidy dataframe `estimates` can be easily used for plotting:
+
 ```{r, fig.width = 6, fig.height = 5}
 plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
 plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
 ```
+
+#### Treatment model
+
+As mentioned above, the treatment model is specified via the `formula` argument. For example, compare:
+
+```{r}
+# Returns the specified formula, coerced to a Formula object
+causal_fx$formula
+# causal_fx$model is a glmerMod S4 object
+causal_fx$model@call
+lme4::getME(causal_fx$model, c("beta", "theta"))
+```
+
 
 

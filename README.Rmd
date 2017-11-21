@@ -79,7 +79,7 @@ data("toy_data")
 head(toy_data)
 ```
 
-## Estimation
+## Example
 
 Estimation is carried out with one function:
 
@@ -93,10 +93,22 @@ causal_fx <- policyFX(
 )
 ```
 
+The estimates of causal estimands are output in a tidy dataframe:
 
 ```{r}
 knitr::kable(causal_fx$estimates, digits = 3)
 ```
+
+Note that ` Treatment ~ Age + Distance + (1 | Cluster_ID)` in the the middle of the `formula` argument is sent to `lme4::glmer()` to specify the form of the (logit-link binomial) treatment model. For example, compare the following:
+
+```{r}
+# Returns the specified formula, coerced to a Formula object
+causal_fx$formula
+# causal_fx$model is a glmerMod S4 object
+causal_fx$model@call
+lme4::getME(causal_fx$model, c("beta", "theta"))
+```
+
 
 ## Vignette
 
