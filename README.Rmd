@@ -99,13 +99,23 @@ The estimates of causal estimands are output in a tidy dataframe:
 knitr::kable(causal_fx$estimates, digits = 3)
 ```
 
-Note that ` Treatment ~ Age + Distance + (1 | Cluster_ID)` in the the middle of the `formula` argument is sent to `lme4::glmer()` to specify the form of the (logit-link binomial) treatment model. For example, compare the following:
+Note that ` Treatment ~ Age + Distance + (1 | Cluster_ID)` in the the middle of the `formula` argument is sent to `lme4::glmer()` to specify the form of the (logit-link binomial) treatment model. 
+
+The `policyFX()` output list includes an element, `formula`, for the `Formula` object:
 
 ```{r}
-# Returns the specified formula, coerced to a Formula object
 causal_fx$formula
-# causal_fx$model is a glmerMod S4 object
+```
+
+The output list also includes an element, `model`, which is the fitted `glmerMod` S4 model object. Here we can see that the middle of `formula` was passed into the `glmer()` logit-link binomial mixed model:
+
+```{r}
 causal_fx$model@call
+```
+
+The fitted model estimates three fixed effects (intercept, a term for `Age` and a term for `Distance`) and one random effect (for `Cluster_ID`):
+
+```{r}
 lme4::getME(causal_fx$model, c("beta", "theta"))
 ```
 
