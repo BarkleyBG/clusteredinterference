@@ -10,7 +10,7 @@ What is clustered interference?
 
 ### What is interference?
 
-In causal inference, when one individual's treatment may affect another individual's outcome, it's often called **interference**. In most applications, it is assumed that there is no interference whatsoever. In some applications this must be relaxed; i.e., as in infectious disease research.
+In causal inference, when one individual's treatment may affect another individual's outcome, it's often called **interference**. In most applications, it is assumed that there is no interference whatsoever. In some applications this must be relaxed - e.g., as in infectious disease research.
 
 ### Clustered interference is partial interference
 
