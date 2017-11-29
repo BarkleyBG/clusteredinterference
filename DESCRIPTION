@@ -3,12 +3,12 @@ Type: Package
 Date: 2017-11-21
 Title: Causal Effects from Observational Studies with Clustered Interference
 Version: 0.3.2
-Authors@R: person("Brian", "Barkley", email = "BarkleyBG@unc.edu",
+Authors@R: person("Brian G.", "Barkley", email = "BarkleyBG@unc.edu",
     role = c("aut", "cre"))
 Description: Estimating causal effects from observational studies assuming 
     clustered (or partial) interference. These IPW estimators target new 
     estimands arising from population-level treatment policies. The estimands 
-    and estimators are introduced in Barkley et. al (2017); see 
+    and estimators are introduced in Barkley et al. (2017); see 
     <arXiv:1711.04834>.
 License: GPL-3 + file LICENSE
 Encoding: UTF-8
