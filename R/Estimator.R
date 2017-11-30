@@ -1,22 +1,14 @@
 
-#' Estimate Causal Effects \emph{("FX")} of Population Treatment Policies
-#' Assuming Clustered Interference
+#' Estimate Causal Effects of Population Treatment Policies Assuming Clustered
+#' Interference
 #'
-#' This function implements the estimators from Barkley et al (201X) for
-#' observational studies when \strong{clustered interference} is assumed.
-#' Clustered interference is also often known as "partial" interference.
+#' This function implements the estimators from Barkley et al. (2017) for
+#' estimating causal effects \emph{("FX")} of treatment policies from an
+#' observational study when \strong{clustered interference} is assumed.
+#' Clustered interference is also often known as "partial" interference. For the
+#' manuscript introducing the methods in \pkg{clusteredinterference}, see: URL
+#' \url{https://arxiv.org/abs/1711.04834}
 #'
-#' These estimators are based on inverse probability-weighting by the propensity
-#' score for treatment (IPTW) to estimate causal effects of counterfactual
-#' policies of interest (i.e., \emph{"policy effects"}) when clustered
-#' interference is assumed. The policies of interest correspond to
-#' counterfactual scenarios in which treatment may be correlated within
-#' clusters.
-#'
-#' This method estimates causal contrasts of these policies by estimating the
-#' counterfactual treatment probabilities; taking the correlation structures
-#' into account requires heavy computational resources, so the user should be
-#' patient.
 #'
 #' @param data A \code{data.frame} (not a \code{tibble}). Columns of
 #'   \code{factor} types are not recommended and will sometimes throw
@@ -46,9 +38,21 @@
 #' @param verbose A Boolean on whether to print output to \code{stderr}.
 #'   Defaults to FALSE.
 #'
-#' @details The modeling formula for the propensity score (i.e., treatment)
-#'   model is specified via the \code{formula} formal argument. An example of a
-#'   model logit-linear fixed effects would be \code{Y | A ~ X1 + X2 + (1 |
+#' @details These estimators are based on inverse probability-weighting by the
+#'   propensity score for treatment (IPTW) to estimate causal effects of
+#'   counterfactual policies of interest (i.e., \emph{"policy effects"}) when
+#'   clustered interference is assumed. The policies of interest correspond to
+#'   counterfactual scenarios in which treatment may be correlated within
+#'   clusters.
+#'
+#'   This method estimates causal contrasts of these policies by estimating the
+#'   counterfactual treatment probabilities; taking the correlation structures
+#'   into account requires heavy computational resources, so the user should be
+#'   patient.
+#'
+#'   The modeling formula for the propensity score (i.e., treatment) model is
+#'   specified via the \code{formula} formal argument. An example of a model
+#'   logit-linear fixed effects would be \code{Y | A ~ X1 + X2 + (1 |
 #'   cluster_ID) | cluster_ID}. A similar model that also includes an
 #'   interaction term is \code{Y | A ~ X1 + X2 + X1:X2 + (1 | cluster_ID) |
 #'   cluster_ID}.
@@ -81,18 +85,25 @@
 #'   "clusteredinterference")}. It describes the necessary arguments, as well as
 #'   some extra functionality.
 #'
-#' @references Bradley Saul and Michael Hudgens (2017). \emph{A Recipe for
-#'   {inferference}: Start with Causal Inference. Add Interference. Mix Well
-#'   with R.} Journal of Statistical Software. Conditionally accepted for
-#'   publication. \url{https://cran.r-project.org/package=inferference}
+#' @references Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and
+#'   Emch, M. E. (2017). Causal Inference from Observational Studies with
+#'   Clustered Interference. \emph{arXiv preprint arXiv:1711.04834}. (URL:
+#'   \url{https://arxiv.org/abs/1711.04834}.)
 #'
-#'   Bradley Saul (2017). \emph{geex: An API for M-Estimation}.
+#'   Bradley C Saul and Michael G Hudgens (2017). A Recipe for
+#'   \code{inferference}: Start with Causal Inference. Add Interference. Mix
+#'   Well with R. \emph{Journal of Statistical Software} \strong{82}(2), pp.
+#'   1-21. doi: <10.18637/jss.v082.i02> (URL:
+#'   \url{http://doi.org/10.18637/jss.v082.i02}).
+#'   \url{https://cran.r-project.org/package=inferference}.
+#'   \url{https://github.com/bsaul/inferference}.
+#'
+#'   Bradley Saul (2017). \code{geex}: An API for M-Estimation.
+#'   \url{https://cran.r-project.org/package=geex}.
 #'   \url{https://github.com/bsaul/geex}, \url{https://bsaul.github.io/geex/}.
-#'   \url{https://cran.r-project.org/package=geex}
 #'
 #' @examples
 #' \dontrun{
-#' ## not run
 #' data("toy_data", "clusteredinterference")
 #' causal_fx <- policyFX(
 #'   data = toy_data,
