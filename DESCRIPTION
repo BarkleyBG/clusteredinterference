@@ -3,8 +3,11 @@ Type: Package
 Date: 2018-02-10
 Title: Causal Effects from Observational Studies with Clustered Interference
 Version: 0.3.2.9000
-Authors@R: person("Brian G.", "Barkley", email = "BarkleyBG@unc.edu",
-    role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1787-4735"))
+Authors@R: c(person("Brian G.", "Barkley", email = "BarkleyBG@outlook.com",
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1787-4735")),
+    person("Bradley", "Saul", role = c("ctb")))
+Author: Brian G. Barkley [aut, cre], Bradley Saul [ctb]
+Maintainer: Brian G. Barkley <BarkleyBG@outlook.com>
 Description: Estimating causal effects from observational studies assuming 
     clustered (or partial) interference. These IPW estimators target new 
     estimands arising from population-level treatment policies. The estimands 
