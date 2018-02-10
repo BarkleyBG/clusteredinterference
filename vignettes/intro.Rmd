@@ -1,10 +1,10 @@
 ---
-title: "Introduction to the `clusteredinterference` package"
+title: "Introduction"
 author: "Brian G. Barkley"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{intro}
+  %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -1,3 +1,9 @@
+# clusteredinterference 0.3.2.9000
+
+* Add cran comments
+* Minor changes to DESCRIPTION, vignettes, README, etc.
+
+
 # clusteredinterference 0.3.2
 
 * Added `model` and `formula` items to output list

@@ -1,8 +1,9 @@
 ---
-output:
-  md_document:
-    variant: markdown_github
+output: github_document
 ---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
@@ -17,7 +18,7 @@ knitr::opts_chunk$set(
 
 # About the `clusteredinterference` package
 
-This package implements the estimators proposed in [Barkley et al. (2017), _Causal Inference from Observational Studies with Clustered Interference_.](https://arxiv.org/abs/1711.04834)
+This package implements the estimators proposed in [Barkley et al. (2017), _Causal Inference from Observational Studies with Clustered Interference_](https://arxiv.org/abs/1711.04834) for estimating the causal effects of different treatment policies in the presence of partial or clustered interference.
 
 
 ## What is clustered interference?
