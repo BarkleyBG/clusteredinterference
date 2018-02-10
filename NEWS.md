@@ -1,5 +1,7 @@
 # clusteredinterference 0.3.2.9000
 
+* Create `policyFX` class and S3 methods: for `print` and `summary`
+* Change vignette name to "estimate-policyFX".
 * Add cran comments
 * Minor changes to DESCRIPTION, vignettes, README, etc.
 

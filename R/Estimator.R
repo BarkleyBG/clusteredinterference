@@ -39,7 +39,7 @@
 #'   Defaults to FALSE.
 #'
 #' @details These estimators are based on inverse probability-weighting by the
-#'   propensity score for treatment (IPTW) to estimate causal effects of
+#'   propensity score for treatment (IPW) to estimate causal effects of
 #'   counterfactual policies of interest (i.e., \emph{"policy effects"}) when
 #'   clustered interference is assumed. The policies of interest correspond to
 #'   counterfactual scenarios in which treatment may be correlated within
@@ -81,9 +81,9 @@
 #'   object. \item \code{formula}: The full formula argument provided, after
 #'   coercion to a \code{\link[=Formula]{Formula}} object}
 #'
-#' @seealso Please see the main package vignette at \code{vignette("intro",
-#'   "clusteredinterference")}. It describes the necessary arguments, as well as
-#'   some extra functionality.
+#' @seealso Please see the main package vignette at
+#'   \code{vignette("estimate-policyFX")}. It describes the necessary arguments,
+#'   as well as some extra functionality.
 #'
 #' @references Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and
 #'   Emch, M. E. (2017). Causal Inference from Observational Studies with
@@ -102,6 +102,9 @@
 #'   \url{https://cran.r-project.org/package=geex}.
 #'   \url{https://github.com/bsaul/geex}, \url{https://bsaul.github.io/geex/}.
 #'
+#'
+#' @author Brian G. Barkley
+
 #' @examples
 #' \dontrun{
 #' data("toy_data", "clusteredinterference")
@@ -267,7 +270,7 @@ policyFX <- function(
     model = glmer_fit,
     formula = formule
   )
+  class(out_list) <- "policyFX"
+  out_list
 
 }
-
-

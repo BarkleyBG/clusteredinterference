@@ -1,7 +1,7 @@
 #' A "toy" dataset for illustrating the estimator
 #'
 #' A dataset containing simulated data for outcome, treatment status, cluster
-#' membership, and two pre-treatment covariates. There are 22 clusters that have
+#' membership, and two pretreatment covariates. There are 22 clusters that have
 #' 3 individuals each, and 8 clusters that have 4 individuals each.
 #'
 #' @format A data frame with 98 rows and 5 variables: \describe{

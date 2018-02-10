@@ -1,13 +1,20 @@
 ---
-title: "Introduction"
+title: "Estimating causal `policyFX` with `clusteredinterference`"
 author: "Brian G. Barkley"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction}
+  %\VignetteIndexEntry{estimate-policyFX}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 First, load the `clusteredinterference` package 
 
@@ -23,9 +30,7 @@ data("toy_data")
 
 ## Estimation
 
-Estimation is implemented with one function:
-
-
+Estimation is implemented with the `policyFX()` function:
 
 ```{r} 
 set.seed(1113)
@@ -36,9 +41,13 @@ causal_fx <- policyFX(
   k_samps = 1
 )
 
-knitr::kable(causal_fx$estimates[1:6,], digits = 3)
 ```
 
+The `policyFX()` function outputs a `"policyFX"` object, which works well with a few methods, including:
+
+```{r}
+summary(causal_fx)
+```
 
 ### Necessary arguments
 
@@ -119,10 +128,10 @@ causal_fx2 <- policyFX(
   root_options = list(atol=1e-4)
 )
 
-knitr::kable(causal_fx2$estimates[1:6,], digits = 3)
+print(causal_fx, nrows = 9)
 ```
 
-#### Plotting 
+### Plotting 
 
 The tidy dataframe `estimates` can be easily used for plotting:
 
@@ -131,7 +140,7 @@ plotdat <- causal_fx2$estimates[causal_fx2$estimates$estimand_type=="mu",]
 plot(x = plotdat$alpha1, y = plotdat$estimate, main = "Estimated Population Means")
 ```
 
-#### Treatment model
+### Treatment model
 
 As mentioned above, the treatment model is specified via the `formula` argument. For example, compare:
 

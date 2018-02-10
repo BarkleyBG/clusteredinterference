@@ -69,7 +69,7 @@ manuscript introducing the methods in \pkg{clusteredinterference}, see: URL
 }
 \details{
 These estimators are based on inverse probability-weighting by the
-  propensity score for treatment (IPTW) to estimate causal effects of
+  propensity score for treatment (IPW) to estimate causal effects of
   counterfactual policies of interest (i.e., \emph{"policy effects"}) when
   clustered interference is assumed. The policies of interest correspond to
   counterfactual scenarios in which treatment may be correlated within
@@ -117,9 +117,9 @@ Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and
   \url{https://github.com/bsaul/geex}, \url{https://bsaul.github.io/geex/}.
 }
 \seealso{
-Please see the main package vignette at \code{vignette("intro",
-  "clusteredinterference")}. It describes the necessary arguments, as well as
-  some extra functionality.
+Please see the main package vignette at
+  \code{vignette("estimate-policyFX")}. It describes the necessary arguments,
+  as well as some extra functionality.
 }
 \author{
 Brian G. Barkley, \email{BarkleyBG@unc.edu}.
@@ -132,4 +132,6 @@ Brian G. Barkley, \email{BarkleyBG@unc.edu}.
   adapted from Bradley Saul's
   \href{https://cran.r-project.org/package=inferference}{\pkg{inferference}}
   package.
+
+Brian G. Barkley
 }

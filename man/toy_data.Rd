@@ -16,7 +16,7 @@ toy_data
 }
 \description{
 A dataset containing simulated data for outcome, treatment status, cluster
-membership, and two pre-treatment covariates. There are 22 clusters that have
+membership, and two pretreatment covariates. There are 22 clusters that have
 3 individuals each, and 8 clusters that have 4 individuals each.
 }
 \keyword{datasets}
