@@ -3,7 +3,6 @@
 * ubuntu 12.04 (on travis-ci), R 3.3.0
 * win-builder (devel and release)
 
-I've run this package on several builds with rhub::checkI() and rhub::check_with_rdevel(), and it is successful with no errors, no warnings, and no notes.
 
 ## R CMD check results
 

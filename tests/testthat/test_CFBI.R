@@ -14,9 +14,10 @@ CFBI_alpha_solved <- do.call(getCFBI1Alpha,est_CFBI1Alpha_args)
 testthat::test_that(
   desc = "getCFBI1Alpha() solves for the same gamma_{0,alpha} value",
   testthat::expect_equal(
-    object =  CFBI_alpha_solved,
-    expected = CFBI_alpha_baseline,
-    tolerance = helper_tol,
+    object =  CFBI_alpha_solved$root,
+    expected = CFBI_alpha_baseline$root,
+    # tolerance = helper_tol,
+    tolerance = 1e-5,
     check.attributes = TRUE
   )
 )

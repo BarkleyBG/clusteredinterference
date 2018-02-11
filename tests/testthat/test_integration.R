@@ -105,7 +105,8 @@ testthat::test_that(
   testthat::expect_equal(
     object =  baseline_effects$variance_matrices[[1]],
     expected = pfx$variance_matrices[[1]],
-    tolerance = helper_tol,
+    # tolerance = helper_tol,
+    tolerance = 1e-5,
     check.attributes = TRUE
   )
 )
@@ -114,7 +115,8 @@ testthat::test_that(
   testthat::expect_equal(
     object =  baseline_effects$variance_matrices[[1]]$Meat_mat,
     expected = pfx$variance_matrices[[1]]$Meat_mat,
-    tolerance = helper_tol,
+    # tolerance = helper_tol,
+    tolerance = 1e-5,
     check.attributes = TRUE
   )
 )

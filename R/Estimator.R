@@ -16,7 +16,7 @@
 #' @param formula The \code{formula} defines the different components of the
 #'   method. The components are specified by \code{outcome | treatment ~
 #'   f(covariates) + (1|cluster_id) | cluster_id}. The middle component is
-#'   passed to \code{\link[=lme4]{glmer}}, so \code{treatment ~ f(covariates) +
+#'   passed to \code{\link[lme4]{glmer}}, so \code{treatment ~ f(covariates) +
 #'   (1|cluster_id)} specifies the model form for the propensity score (i.e.,
 #'   treatment) model. See Details.
 #' @param alphas A numeric vector for the probabilities corresponding to the
@@ -29,9 +29,9 @@
 #'   \code{target_grid} through the dots argument. The \code{target_grid} can be
 #'   made through exported function \code{\link{makeTargetGrid}}
 #' @param nAGQ This is the number of Adaptive Gaussian Quadrature points used in
-#'   the \code{\link[=lme4]{glmer}} model fitting computation. Defaults to 2. It
+#'   the \code{\link[lme4]{glmer}} model fitting computation. Defaults to 2. It
 #'   is recommended to use more than 1.
-#' @param root_options These are passed to \code{\link[=rootSolve]{multiroot}}
+#' @param root_options These are passed to \code{\link[rootSolve]{multiroot}}
 #'   function.
 #' @param return_matrices A Boolean on whether to return the "bread" and "meat"
 #'   matrices in the sandwich variance. Defaults to \code{FALSE}.
@@ -79,7 +79,7 @@
 #'   object with length 0. \item \code{propensity_scores}: The estimated
 #'   propensity scores for each cluster. \item \code{model}: The treatment model
 #'   object. \item \code{formula}: The full formula argument provided, after
-#'   coercion to a \code{\link[=Formula]{Formula}} object}
+#'   coercion to a \code{\link[Formula]{Formula}} object}
 #'
 #' @seealso Please see the main package vignette at
 #'   \code{vignette("estimate-policyFX")}. It describes the necessary arguments,
