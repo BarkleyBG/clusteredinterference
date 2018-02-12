@@ -1,3 +1,9 @@
+## Resubmission
+This is a resubmission. In this version I have:
+
+* Removed the LICENSE file
+* Changed DESCRIPTION from "License: GPL-3 + file LICENSE" to "License: GPL-3"
+
 ## Test environments
 * local Windows 7 install, R 3.3.0
 * ubuntu 12.04 (on travis-ci), R 3.3.0

@@ -14,7 +14,7 @@ Description: Estimating causal effects from observational studies assuming
     estimators target new estimands arising from population-level treatment 
     policies. The estimands and estimators are introduced in Barkley et al. 
     (2017) <arXiv:1711.04834>.
-License: GPL-3 + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
