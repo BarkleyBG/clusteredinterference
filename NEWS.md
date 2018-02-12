@@ -1,45 +1,6 @@
-# clusteredinterference 0.3.2.9000
+# clusteredinterference 1.0.0
 
-* Create `policyFX` class and S3 methods: for `print` and `summary`
-* Change vignette name to "estimate-policyFX".
-* Add cran comments
-* Minor changes to DESCRIPTION, vignettes, README, etc.
-
-
-# clusteredinterference 0.3.2
-
-* Added `model` and `formula` items to output list
-
-# clusteredinterference 0.3.1
-
-* Changed character strings for estimands in the estimator output.
-
-# clusteredinterference 0.3.0
-
-* Added a `NEWS.md` file to track changes to the package.
-* Fixed build issue due to bad links in documentation.
-* Checked build status on different architecture with `rhub` package.
-* Fixed vignette's metadata indexing to `intro`
-* This jumps past version 0.2 strictly due to previous versioning issues.
-
-
-
-# clusteredinterference 0.0.2
-
-* Added references and enhanced documentation.
-* Commit aaa1343 mistakenly referred to this as "version 0.2".
-
-
-
-# clusteredinterference 0.0.1
-
-* `policyFX()` returns tidier output.
-* Added integration test.
-* Added unit tests.
-
-
-
-# clusteredinterference 0.0.0.9
-
-* Introduction of `clusteredinterference`.
+- Initial CRAN release of 'clusteredinterference' package!
+    - This package implements the estimators proposed in [Barkley et al. (2017), _Causal Inference from Observational Studies with Clustered Interference_](https://arxiv.org/abs/1711.04834) for estimating the causal effects of different treatment policies in the presence of partial or clustered interference.
+- See the estimation function `policyFX()` for more information.
 

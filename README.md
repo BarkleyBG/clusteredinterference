@@ -38,58 +38,17 @@ Using the 'clusteredinterference' package
 Install the package
 -------------------
 
-You'll need to use the `devtools` package to install [https://github.com/BarkleyBG/clusteredinterference](from%20GitHub):
+This package is now on CRAN!
 
 ``` r
-devtools::install_github("BarkleyBG/clusteredinterference")
+install.package("clusteredinterference")
 ```
 
-### Architectures supported
+Or, visit the [GitHub repo:](https://github.com/BarkleyBG/clusteredinterference)
 
-In addition to the unit tests included in this package, this package has been checked on several operating systems with the [https://github.com/r-hub/rhub](%60rhub%60) package:
-
-<table style="width:25%;">
-<colgroup>
-<col width="8%" />
-<col width="8%" />
-<col width="4%" />
-<col width="4%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Architecture</th>
-<th>Platform</th>
-<th>R version</th>
-<th>Latest succesful check</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>macOS 10.11 El Capitan, R-release (experimental)</td>
-<td>x86_64-apple-darwin15.6.0</td>
-<td>3.4.1 (2017-06-30)</td>
-<td>v0.3.1</td>
-</tr>
-<tr class="even">
-<td>Windows Server 2008 R2 SP1, R-release, 32/64 bit</td>
-<td>x86_64-w64-mingw32</td>
-<td>3.4.2 (2017-09-28)</td>
-<td>v0.3.1</td>
-</tr>
-<tr class="odd">
-<td>Ubuntu Linux 16.04 LTS, R-release, GCC</td>
-<td>x86_64-pc-linux-gnu</td>
-<td>3.4.2 (2017-09-28)</td>
-<td>v0.3.1</td>
-</tr>
-<tr class="even">
-<td>CentOS 6, stock R from EPEL</td>
-<td>x86_64-redhat-linux-gnu</td>
-<td>3.4.1 (2017-06-30)</td>
-<td>v0.3.1</td>
-</tr>
-</tbody>
-</table>
+``` r
+# devtools::install_github("BarkleyBG/clusteredinterference")
+```
 
 Load this package
 -----------------

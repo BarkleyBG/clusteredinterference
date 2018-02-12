@@ -100,7 +100,7 @@
 #'
 #'   Bradley Saul (2017). \code{geex}: An API for M-Estimation.
 #'   \url{https://cran.r-project.org/package=geex}.
-#'   \url{https://github.com/bsaul/geex}, \url{https://bsaul.github.io/geex/}.
+#'   \url{https://github.com/bsaul/geex}.
 #'
 #'
 #' @author Brian G. Barkley

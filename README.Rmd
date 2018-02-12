@@ -49,22 +49,17 @@ Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017).
 
 ## Install the package
 
-You'll need to use the `devtools` package to install [https://github.com/BarkleyBG/clusteredinterference](from GitHub): 
+This package is now on CRAN!
 
 ```{r, eval = FALSE}
-devtools::install_github("BarkleyBG/clusteredinterference")
+install.package("clusteredinterference")
 ```
 
-### Architectures supported
+Or, visit the [GitHub repo:](https://github.com/BarkleyBG/clusteredinterference)
 
-In addition to the unit tests included in this package, this package has been checked on several operating systems with the [https://github.com/r-hub/rhub](`rhub`) package: 
-
-|Architecture|Platform|R version|Latest succesful check|
-|-----|-----|--|--|
-|macOS 10.11 El Capitan, R-release (experimental)| x86_64-apple-darwin15.6.0| 3.4.1 (2017-06-30) |v0.3.1 |
-|Windows Server 2008 R2 SP1, R-release, 32/64 bit | x86_64-w64-mingw32 | 3.4.2 (2017-09-28) | v0.3.1|
-|Ubuntu Linux 16.04 LTS, R-release, GCC| x86_64-pc-linux-gnu | 3.4.2 (2017-09-28) |v0.3.1 |
-|CentOS 6, stock R from EPEL| x86_64-redhat-linux-gnu | 3.4.1 (2017-06-30) | v0.3.1|
+```{r, eval = FALSE}
+# devtools::install_github("BarkleyBG/clusteredinterference")
+```
 
 
 ## Load this package 
