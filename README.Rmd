@@ -13,6 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/clusteredinterference)](https://cran.r-project.org/package=clusteredinterference)
 [![Travis-CI Build Status](https://travis-ci.org/BarkleyBG/clusteredinterference.svg?branch=master)](https://travis-ci.org/BarkleyBG/clusteredinterference)
 [![Coverage Status](https://codecov.io/github/BarkleyBG/clusteredinterference/coverage.svg?branch=master)](https://codecov.io/github/BarkleyBG/clusteredinterference)
 
