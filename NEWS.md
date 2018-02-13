@@ -1,3 +1,5 @@
+# clusteredinterference 1.0.0.9000
+
 # clusteredinterference 1.0.0
 
 - Initial CRAN release of 'clusteredinterference' package!
