@@ -1,64 +1,88 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Travis-CI Build Status](https://travis-ci.org/BarkleyBG/clusteredinterference.svg?branch=master)](https://travis-ci.org/BarkleyBG/clusteredinterference) [![Coverage Status](https://codecov.io/github/BarkleyBG/clusteredinterference/coverage.svg?branch=master)](https://codecov.io/github/BarkleyBG/clusteredinterference)
 
-About the 'clusteredinterference' package
-=========================================
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/clusteredinterference)](https://cran.r-project.org/package=clusteredinterference)
+[![Travis-CI Build
+Status](https://travis-ci.org/BarkleyBG/clusteredinterference.svg?branch=master)](https://travis-ci.org/BarkleyBG/clusteredinterference)
+[![Coverage
+Status](https://codecov.io/github/BarkleyBG/clusteredinterference/coverage.svg?branch=master)](https://codecov.io/github/BarkleyBG/clusteredinterference)
 
-This package implements the estimators proposed in [Barkley et al. (2017), *Causal Inference from Observational Studies with Clustered Interference*](https://arxiv.org/abs/1711.04834) for estimating the causal effects of different treatment policies in the presence of partial or clustered interference.
+# About the ‘clusteredinterference’ package
 
-What is clustered interference?
--------------------------------
+This package implements the estimators proposed in [Barkley et al.
+(2017), *Causal Inference from Observational Studies with Clustered
+Interference*](https://arxiv.org/abs/1711.04834) for estimating the
+causal effects of different treatment policies in the presence of
+partial or clustered interference.
+
+## What is clustered interference?
 
 ### What is interference?
 
-In causal inference, when one individual's treatment may affect another individual's outcome, it's often called **interference**. In most applications, it is assumed that there is no interference whatsoever. In some applications this must be relaxed - e.g., as in infectious disease research.
+In causal inference, when one individual’s treatment may affect another
+individual’s outcome, it’s often called **interference**. In most
+applications, it is assumed that there is no interference whatsoever. In
+some applications this must be relaxed - e.g., as in infectious disease
+research.
 
 ### Clustered interference is partial interference
 
-A relaxation of the assumption of "no interference" is to assume that individuals may be partitioned into distinct clusters of individuals (e.g., households, or classrooms, etc.) such that there may be interference within the clusters, but not between the clusters. Historically, this assumption has been referred to as **partial interference** after Sobel (2006).
+A relaxation of the assumption of “no interference” is to assume that
+individuals may be partitioned into distinct clusters of individuals
+(e.g., households, or classrooms, etc.) such that there may be
+interference within the clusters, but not between the clusters.
+Historically, this assumption has been referred to as **partial
+interference** after Sobel (2006).
 
-[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) introduces the terminology **clustered interference** to refer to this same assumption. This phrase may be sufficiently descriptive of the underlying assumption, and perhaps clarifies the presumed restriction of interference to clusters.
+[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) introduces the
+terminology **clustered interference** to refer to this same assumption.
+This phrase may be sufficiently descriptive of the underlying
+assumption, and perhaps clarifies the presumed restriction of
+interference to clusters.
 
-About the method
-================
+# About the method
 
-[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) proposes new causal estimands for defining treatment effects in the context of observational studies when there may be interference or spillover effects between units in the same cluster. The manuscript also introduces IPTW estimators for thos estimands, which are implemented in 'clusteredinterference'.
+[Barkley et al. (2017)](https://arxiv.org/abs/1711.04834) proposes new
+causal estimands for defining treatment effects in the context of
+observational studies when there may be interference or spillover
+effects between units in the same cluster. The manuscript also
+introduces IPTW estimators for thos estimands, which are implemented in
+‘clusteredinterference’.
 
-The manuscript
---------------
+## The manuscript
 
-A version of this manuscript is available [on arXiv at 1711.04834](https://arxiv.org/abs/1711.04834):
+A version of this manuscript is available [on arXiv
+at 1711.04834](https://arxiv.org/abs/1711.04834):
 
-Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal inference from observational studies with clustered interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
+Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E.
+(2017). Causal inference from observational studies with clustered
+interference. *arXiv preprint arXiv:1711.04834*. URL
+<https://arxiv.org/abs/1711.04834>.
 
-Using the 'clusteredinterference' package
-=========================================
+# Using the ‘clusteredinterference’ package
 
-Install the package
--------------------
+## Install the package
 
-This package is now on CRAN!
+This package is now on CRAN\!
 
 ``` r
 install.package("clusteredinterference")
 ```
 
-Or, visit the [GitHub repo:](https://github.com/BarkleyBG/clusteredinterference)
+Or, visit the [GitHub
+repo:](https://github.com/BarkleyBG/clusteredinterference)
 
 ``` r
 # devtools::install_github("BarkleyBG/clusteredinterference")
 ```
 
-Load this package
------------------
+## Load this package
 
 ``` r
 library(clusteredinterference)
 ```
 
-A quick data example
---------------------
+## A quick data example
 
 ``` r
 data("toy_data")
@@ -72,8 +96,7 @@ head(toy_data)
 #> 6       0         0          2 42.21215 8.023865
 ```
 
-Example
--------
+## Example
 
 Estimation is carried out with one function:
 
@@ -148,16 +171,21 @@ summary(causal_fx)
 #> ---------------------------------------------
 ```
 
-Note that `Treatment ~ Age + Distance + (1 | Cluster_ID)` in the the middle of the `formula` argument is sent to `lme4::glmer()` to specify the form of the (logit-link binomial) treatment model.
+Note that `Treatment ~ Age + Distance + (1 | Cluster_ID)` in the the
+middle of the `formula` argument is sent to `lme4::glmer()` to specify
+the form of the (logit-link binomial) treatment model.
 
-The `policyFX()` output list includes an element, `formula`, for the `Formula` object:
+The `policyFX()` output list includes an element, `formula`, for the
+`Formula` object:
 
 ``` r
 causal_fx$formula
 #> Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID
 ```
 
-The output list also includes an element, `model`, which is the fitted `glmerMod` S4 model object. Here we can see that the middle of `formula` was passed into the `glmer()` logit-link binomial mixed model:
+The output list also includes an element, `model`, which is the fitted
+`glmerMod` S4 model object. Here we can see that the middle of `formula`
+was passed into the `glmer()` logit-link binomial mixed model:
 
 ``` r
 causal_fx$model@call
@@ -165,7 +193,9 @@ causal_fx$model@call
 #>     data = data, family = stats::binomial, nAGQ = nAGQ)
 ```
 
-The fitted model estimates three fixed effects (intercept, a term for `Age` and a term for `Distance`) and one random effect (for `Cluster_ID`):
+The fitted model estimates three fixed effects (intercept, a term for
+`Age` and a term for `Distance`) and one random effect (for
+`Cluster_ID`):
 
 ``` r
 lme4::getME(causal_fx$model, c("beta", "theta"))
@@ -177,8 +207,7 @@ lme4::getME(causal_fx$model, c("beta", "theta"))
 #>               1.180325
 ```
 
-Vignette
---------
+## Vignette
 
 The vignette provides more information on the formal arguments:
 
@@ -186,20 +215,46 @@ The vignette provides more information on the formal arguments:
 vignette("estimate-policyFX")
 ```
 
-News and version history
-========================
+# News and version history
 
-A changelog is found in the `NEWS.md` file. Version history is also tracked by the [release tags](https://github.com/BarkleyBG/clusteredinterference/releases) for this GitHub repo.
+A changelog is found in the `NEWS.md` file. Version history is also
+tracked by the [release
+tags](https://github.com/BarkleyBG/clusteredinterference/releases) for
+this GitHub repo.
 
-References and acknowledgments
-==============================
+# References and acknowledgments
 
--   The manuscript introducing the methods in 'clusteredinterference' is:
-    -   Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and Emch, M. E. (2017). Causal inference from observational studies with clustered interference. *arXiv preprint arXiv:1711.04834*. URL <https://arxiv.org/abs/1711.04834>.
--   The terminology of **partial interference** is attributed to Sobel (2006):
-    -   Sobel, M. E. (2006). What do randomized studies of housing mobility demonstrate? Causal inference in the face of interference. *Journal of the American Statistical Association*, 101(476), 1398-1407. [doi: 10.1198/016214506000000636](http://dx.doi.org/10.1198/016214506000000636)
--   Please see the [`inferference`](https://cran.r-project.org/package=inferference) package for related estimators from the following articles:
-    -   Perez‐Heydrich, C., Hudgens, M. G., Halloran, M. E., Clemens, J. D., Ali, M., & Emch, M. E. (2014). Assessing effects of cholera vaccination in the presence of interference. *Biometrics*, 70(3), 731-741. [doi: 10.1111/biom.12184](doi.wiley.com/10.1111/biom.12184)
-    -   Tchetgen, E. J. T., & VanderWeele, T. J. (2012). On causal inference in the presence of interference. *Statistical Methods in Medical Research*, 21(1), 55-75. [doi: 10.1177/0962280210386779](https://doi.org/10.1177/0962280210386779)
--   An earlier version of the methods implemented in 'clusteredinterference' was implemented using the [`geex`](https://github.com/bsaul/geex) package for estimating equations.
--   Thanks to [Bradley Saul](https://github.com/bsaul) for [`inferference`](https://cran.r-project.org/package=inferference), [`geex`](https://github.com/bsaul/geex), and for comments and suggestions that were helpful in the creation of 'clusteredinterference'.
+  - The manuscript introducing the methods in ‘clusteredinterference’
+    is:
+      - Barkley, B. G., Hudgens, M. G., Clemens, J. D., Ali, M., and
+        Emch, M. E. (2017). Causal inference from observational studies
+        with clustered interference. *arXiv preprint arXiv:1711.04834*.
+        URL <https://arxiv.org/abs/1711.04834>.
+  - The terminology of **partial interference** is attributed to Sobel
+    (2006):
+      - Sobel, M. E. (2006). What do randomized studies of housing
+        mobility demonstrate? Causal inference in the face of
+        interference. *Journal of the American Statistical Association*,
+        101(476), 1398-1407.
+        [doi: 10.1198/016214506000000636](http://dx.doi.org/10.1198/016214506000000636)
+  - Please see the
+    [`inferference`](https://cran.r-project.org/package=inferference)
+    package for related estimators from the following articles:
+      - Perez‐Heydrich, C., Hudgens, M. G., Halloran, M. E., Clemens, J.
+        D., Ali, M., & Emch, M. E. (2014). Assessing effects of cholera
+        vaccination in the presence of interference. *Biometrics*,
+        70(3), 731-741. [doi:
+        10.1111/biom.12184](doi.wiley.com/10.1111/biom.12184)
+      - Tchetgen, E. J. T., & VanderWeele, T. J. (2012). On causal
+        inference in the presence of interference. *Statistical Methods
+        in Medical Research*, 21(1), 55-75.
+        [doi: 10.1177/0962280210386779](https://doi.org/10.1177/0962280210386779)  
+  - An earlier version of the methods implemented in
+    ‘clusteredinterference’ was implemented using the
+    [`geex`](https://github.com/bsaul/geex) package for estimating
+    equations.
+  - Thanks to [Bradley Saul](https://github.com/bsaul) for
+    [`inferference`](https://cran.r-project.org/package=inferference),
+    [`geex`](https://github.com/bsaul/geex), and for comments and
+    suggestions that were helpful in the creation of
+    ‘clusteredinterference’.
