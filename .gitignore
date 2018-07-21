@@ -6,3 +6,6 @@ inst/doc
 scratch/
 vignettes/*.R
 vignettes/*.html
+sanalysis/
+sdata/
+spix/
