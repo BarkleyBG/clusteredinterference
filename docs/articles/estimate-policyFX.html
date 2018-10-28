@@ -83,7 +83,7 @@
 </h1>
                         <h4 class="author">Brian G. Barkley</h4>
             
-            <h4 class="date">2018-07-21</h4>
+            <h4 class="date">2018-10-28</h4>
       
       <small class="dont-index">Source: <a href="http://github.com/BarkleyBG/clusteredinterference/blob/master/vignettes/estimate-policyFX.Rmd"><code>vignettes/estimate-policyFX.Rmd</code></a></small>
       <div class="hidden name"><code>estimate-policyFX.Rmd</code></div>
@@ -93,59 +93,59 @@
     
     
 <p>First, load the <code>clusteredinterference</code> package</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(clusteredinterference)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(clusteredinterference)</code></pre></div>
 <p>Now load a quick data example that’s included in the package</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">data</span>(<span class="st">"toy_data"</span>) </a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"toy_data"</span>) </code></pre></div>
 <div id="estimation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#estimation" class="anchor"></a>Estimation</h2>
 <p>Estimation is implemented with the <code><a href="../reference/policyFX.html">policyFX()</a></code> function:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1113</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">causal_fx &lt;-<span class="st"> </span><span class="kw"><a href="../reference/policyFX.html">policyFX</a></span>(</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">  <span class="dt">data =</span> toy_data,</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">  <span class="dt">formula =</span> Outcome <span class="op">|</span><span class="st"> </span>Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID) <span class="op">|</span><span class="st"> </span>Cluster_ID,</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">  <span class="dt">alphas =</span> <span class="kw">c</span>(.<span class="dv">3</span>, <span class="fl">.5</span>), </a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">  <span class="dt">k_samps =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1113</span>)
+causal_fx &lt;-<span class="st"> </span><span class="kw"><a href="../reference/policyFX.html">policyFX</a></span>(
+  <span class="dt">data =</span> toy_data,
+  <span class="dt">formula =</span> Outcome <span class="op">|</span><span class="st"> </span>Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID) <span class="op">|</span><span class="st"> </span>Cluster_ID,
+  <span class="dt">alphas =</span> <span class="kw">c</span>(.<span class="dv">3</span>, .<span class="dv">5</span>), 
+  <span class="dt">k_samps =</span> <span class="dv">1</span>
+)</code></pre></div>
 <p>The <code><a href="../reference/policyFX.html">policyFX()</a></code> function outputs a <code>"policyFX"</code> object, which works well with a few methods, including:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">summary</span>(causal_fx)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; ------------- causal estimates --------------</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;     estimand estimate     se     LCI    UCI</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt;      mu(0.3)   0.6523 0.0635  0.5279 0.7767</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;      mu(0.5)   0.6075 0.0505  0.5086 0.7063</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt;     mu0(0.3)   0.6707 0.0736  0.5264 0.8151</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt;     mu0(0.5)   0.5849 0.0728  0.4422 0.7276</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;     mu1(0.3)   0.2799 0.0563  0.1695 0.3902</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;     mu1(0.5)   0.3974 0.0577  0.2842 0.5105</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  OE(0.5,0.3)  -0.0449 0.0366 -0.1165 0.0268</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  OE(0.3,0.5)   0.0449 0.0366 -0.0268 0.1165</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;           ... and 4 more rows ... </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; -------------- treatment model -------------</span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; Generalized linear mixed model fit by maximum likelihood (Adaptive</span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;   Gauss-Hermite Quadrature, nAGQ = 2) [glmerMod]</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  Family: binomial  ( logit )</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; Formula: Treatment ~ Age + Distance + (1 | Cluster_ID)</span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;    Data: data</span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 137.0345 147.3743 -64.5172 129.0345       94 </span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; Random effects:</span></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt;  Groups     Name        Std.Dev.</span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt;  Cluster_ID (Intercept) 1.18    </span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; Number of obs: 98, groups:  Cluster_ID, 30</span></a>
-<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; Fixed Effects:</span></a>
-<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; (Intercept)          Age     Distance  </span></a>
-<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt;    -1.44609     -0.00851      0.26097  </span></a>
-<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; ------------- propensity scores -------------</span></a>
-<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt;      1      2      3      4      5      6      7      8      9     10 </span></a>
-<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="co">#&gt;  0.105  0.162  0.086  0.102  0.167  0.045  0.244 0.0934 0.0765  0.197 </span></a>
-<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt;     11     12     13     14     15     16     17     18     19     20 </span></a>
-<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt; 0.0653  0.281  0.104  0.365 0.0867  0.198  0.207  0.106 0.0847  0.134 </span></a>
-<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt;     21     22     23     24     25     26     27     28     29     30 </span></a>
-<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt;  0.103  0.111  0.105  0.302 0.0434 0.0943 0.0443 0.0512   0.13  0.263 </span></a>
-<a class="sourceLine" id="cb4-38" data-line-number="38"><span class="co">#&gt; ---------------------------------------------</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(causal_fx)
+<span class="co">#&gt; ------------- causal estimates --------------</span>
+<span class="co">#&gt;     estimand estimate     se     LCI    UCI</span>
+<span class="co">#&gt;      mu(0.3)   0.6523 0.0635  0.5279 0.7767</span>
+<span class="co">#&gt;      mu(0.5)   0.6075 0.0505  0.5086 0.7063</span>
+<span class="co">#&gt;     mu0(0.3)   0.6707 0.0736  0.5264 0.8151</span>
+<span class="co">#&gt;     mu0(0.5)   0.5849 0.0728  0.4422 0.7276</span>
+<span class="co">#&gt;     mu1(0.3)   0.2799 0.0563  0.1695 0.3902</span>
+<span class="co">#&gt;     mu1(0.5)   0.3974 0.0577  0.2842 0.5105</span>
+<span class="co">#&gt;  OE(0.5,0.3)  -0.0449 0.0366 -0.1165 0.0268</span>
+<span class="co">#&gt;  OE(0.3,0.5)   0.0449 0.0366 -0.0268 0.1165</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;           ... and 4 more rows ... </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -------------- treatment model -------------</span>
+<span class="co">#&gt; Generalized linear mixed model fit by maximum likelihood (Adaptive</span>
+<span class="co">#&gt;   Gauss-Hermite Quadrature, nAGQ = 2) [glmerMod]</span>
+<span class="co">#&gt;  Family: binomial  ( logit )</span>
+<span class="co">#&gt; Formula: Treatment ~ Age + Distance + (1 | Cluster_ID)</span>
+<span class="co">#&gt;    Data: data</span>
+<span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span>
+<span class="co">#&gt; 137.0345 147.3743 -64.5172 129.0345       94 </span>
+<span class="co">#&gt; Random effects:</span>
+<span class="co">#&gt;  Groups     Name        Std.Dev.</span>
+<span class="co">#&gt;  Cluster_ID (Intercept) 1.18    </span>
+<span class="co">#&gt; Number of obs: 98, groups:  Cluster_ID, 30</span>
+<span class="co">#&gt; Fixed Effects:</span>
+<span class="co">#&gt; (Intercept)          Age     Distance  </span>
+<span class="co">#&gt;    -1.44609     -0.00851      0.26097  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ------------- propensity scores -------------</span>
+<span class="co">#&gt;      1      2      3      4      5      6      7      8      9     10 </span>
+<span class="co">#&gt;  0.105  0.162  0.086  0.102  0.167  0.045  0.244 0.0934 0.0765  0.197 </span>
+<span class="co">#&gt;     11     12     13     14     15     16     17     18     19     20 </span>
+<span class="co">#&gt; 0.0653  0.281  0.104  0.365 0.0867  0.198  0.207  0.106 0.0847  0.134 </span>
+<span class="co">#&gt;     21     22     23     24     25     26     27     28     29     30 </span>
+<span class="co">#&gt;  0.103  0.111  0.105  0.302 0.0434 0.0943 0.0443 0.0512   0.13  0.263 </span>
+<span class="co">#&gt; ---------------------------------------------</span></code></pre></div>
 <div id="necessary-arguments" class="section level3">
 <h3 class="hasAnchor">
 <a href="#necessary-arguments" class="anchor"></a>Necessary arguments</h3>
@@ -172,9 +172,9 @@
 <a href="#formula" class="anchor"></a><code>formula</code>
 </h4>
 <p>The formula may be the trickiest, and it has plenty of information. It provides:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">outcome <span class="op">|</span><span class="st"> </span>treatment <span class="op">~</span><span class="st"> </span>predictors and random intercept <span class="op">|</span><span class="st"> </span>clustering specification</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">outcome <span class="op">|</span><span class="st"> </span>treatment <span class="op">~</span><span class="st"> </span>predictors and random intercept <span class="op">|</span><span class="st"> </span>clustering specification</code></pre></div>
 <p>Note that the middle section is passed to <code>glmer()</code> to fit the mixed effects model, so this is how to specify the modeling formula.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID)</code></pre></div>
 <p>See below for the model output.</p>
 </div>
 </div>
@@ -191,7 +191,7 @@
 <a href="#root_options-null" class="anchor"></a><code>root_options = NULL</code>
 </h4>
 <p>This is for <code><a href="http://www.rdocumentation.org/packages/rootSolve/topics/multiroot">rootSolve::multiroot()</a></code> used in the point estimation procedure. E.g., this will be passed in:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">root_options =<span class="st"> </span><span class="kw">list</span>(<span class="dt">atol =</span> <span class="fl">1e-7</span>) </a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">root_options =<span class="st"> </span><span class="kw">list</span>(<span class="dt">atol =</span> <span class="fl">1e-7</span>) </code></pre></div>
 </div>
 <div id="nagq2" class="section level4">
 <h4 class="hasAnchor">
@@ -210,69 +210,69 @@
 <h3 class="hasAnchor">
 <a href="#dots-tricks" class="anchor"></a>Dots tricks</h3>
 <p>In the event you’re only interested in a subset of contrasts, you can pass a customized grid into the function.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">my_grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/makeTargetGrid.html">makeTargetGrid</a></span>(<span class="dt">alphas =</span> (<span class="dv">3</span><span class="op">:</span><span class="dv">8</span>)<span class="op">/</span><span class="dv">20</span>, <span class="dt">small_grid =</span> <span class="ot">TRUE</span>) </a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">head</span>(my_grid)</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt;   alpha1_num alpha2_num trt alpha1 alpha2 estimand effect_type estVar</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; 1          1         NA  NA   0.15     NA       mu     outcome   TRUE</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; 2          2         NA  NA   0.20     NA       mu     outcome   TRUE</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; 3          3         NA  NA   0.25     NA       mu     outcome   TRUE</span></a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; 4          4         NA  NA   0.30     NA       mu     outcome   TRUE</span></a>
-<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; 5          5         NA  NA   0.35     NA       mu     outcome   TRUE</span></a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; 6          6         NA  NA   0.40     NA       mu     outcome   TRUE</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_grid &lt;-<span class="st"> </span><span class="kw"><a href="../reference/makeTargetGrid.html">makeTargetGrid</a></span>(<span class="dt">alphas =</span> (<span class="dv">3</span><span class="op">:</span><span class="dv">8</span>)<span class="op">/</span><span class="dv">20</span>, <span class="dt">small_grid =</span> <span class="ot">TRUE</span>) 
+<span class="kw">head</span>(my_grid)
+<span class="co">#&gt;   alpha1_num alpha2_num trt alpha1 alpha2 estimand effect_type estVar</span>
+<span class="co">#&gt; 1          1         NA  NA   0.15     NA       mu     outcome   TRUE</span>
+<span class="co">#&gt; 2          2         NA  NA   0.20     NA       mu     outcome   TRUE</span>
+<span class="co">#&gt; 3          3         NA  NA   0.25     NA       mu     outcome   TRUE</span>
+<span class="co">#&gt; 4          4         NA  NA   0.30     NA       mu     outcome   TRUE</span>
+<span class="co">#&gt; 5          5         NA  NA   0.35     NA       mu     outcome   TRUE</span>
+<span class="co">#&gt; 6          6         NA  NA   0.40     NA       mu     outcome   TRUE</span></code></pre></div>
 <p>This can be particularly useful for plotting, as you can “turn off” the variance estimates</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">my_grid<span class="op">$</span>estVar &lt;-<span class="st"> </span><span class="ot">FALSE</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">my_grid<span class="op">$</span>estVar &lt;-<span class="st"> </span><span class="ot">FALSE</span></code></pre></div>
 <p>This is available through the dots argument. Note that when supplying a custom <code>target_grid</code>, it’s not necessary to specify the <code>alphas</code> argument, as that is taken directly from <code>target_grid</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">causal_fx2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/policyFX.html">policyFX</a></span>(</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">  <span class="dt">data =</span> toy_data,</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  <span class="dt">formula =</span> Outcome <span class="op">|</span><span class="st"> </span>Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID) <span class="op">|</span><span class="st"> </span>Cluster_ID,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="co"># alphas = c(.3, .5), </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="dt">target_grid =</span> my_grid,</a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="dt">k_samps =</span> <span class="dv">5</span>,</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="dt">verbose =</span> <span class="ot">FALSE</span>,</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">  <span class="dt">root_options =</span> <span class="kw">list</span>(<span class="dt">atol=</span><span class="fl">1e-4</span>)</a>
-<a class="sourceLine" id="cb10-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="kw">print</span>(causal_fx, <span class="dt">nrows =</span> <span class="dv">9</span>)</a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt; ------------- causal estimates --------------</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;      estimand estimate     se     LCI      UCI</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt;       mu(0.3)   0.6523 0.0635  0.5279  0.77667</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt;       mu(0.5)   0.6075 0.0505  0.5086  0.70633</span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt;      mu0(0.3)   0.6707 0.0736  0.5264  0.81506</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt;      mu0(0.5)   0.5849 0.0728  0.4422  0.72760</span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt;      mu1(0.3)   0.2799 0.0563  0.1695  0.39020</span></a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt;      mu1(0.5)   0.3974 0.0577  0.2842  0.51055</span></a>
-<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt;   OE(0.5,0.3)  -0.0449 0.0366 -0.1165  0.02681</span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt;   OE(0.3,0.5)   0.0449 0.0366 -0.0268  0.11651</span></a>
-<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt;  SE0(0.5,0.3)  -0.0858 0.0403 -0.1648 -0.00677</span></a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt;           ... and 3 more rows ... </span></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; ---------------------------------------------</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/policyFX.html">policyFX</a></span>(
+  <span class="dt">data =</span> toy_data,
+  <span class="dt">formula =</span> Outcome <span class="op">|</span><span class="st"> </span>Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID) <span class="op">|</span><span class="st"> </span>Cluster_ID,
+  <span class="co"># alphas = c(.3, .5), </span>
+  <span class="dt">target_grid =</span> my_grid,
+  <span class="dt">k_samps =</span> <span class="dv">5</span>,
+  <span class="dt">verbose =</span> <span class="ot">FALSE</span>,
+  <span class="dt">root_options =</span> <span class="kw">list</span>(<span class="dt">atol=</span><span class="fl">1e-4</span>)
+)
+
+<span class="kw">print</span>(causal_fx, <span class="dt">nrows =</span> <span class="dv">9</span>)
+<span class="co">#&gt; ------------- causal estimates --------------</span>
+<span class="co">#&gt;      estimand estimate     se     LCI      UCI</span>
+<span class="co">#&gt;       mu(0.3)   0.6523 0.0635  0.5279  0.77667</span>
+<span class="co">#&gt;       mu(0.5)   0.6075 0.0505  0.5086  0.70633</span>
+<span class="co">#&gt;      mu0(0.3)   0.6707 0.0736  0.5264  0.81506</span>
+<span class="co">#&gt;      mu0(0.5)   0.5849 0.0728  0.4422  0.72760</span>
+<span class="co">#&gt;      mu1(0.3)   0.2799 0.0563  0.1695  0.39020</span>
+<span class="co">#&gt;      mu1(0.5)   0.3974 0.0577  0.2842  0.51055</span>
+<span class="co">#&gt;   OE(0.5,0.3)  -0.0449 0.0366 -0.1165  0.02681</span>
+<span class="co">#&gt;   OE(0.3,0.5)   0.0449 0.0366 -0.0268  0.11651</span>
+<span class="co">#&gt;  SE0(0.5,0.3)  -0.0858 0.0403 -0.1648 -0.00677</span>
+<span class="co">#&gt;           ... and 3 more rows ... </span>
+<span class="co">#&gt; ---------------------------------------------</span></code></pre></div>
 </div>
 <div id="plotting" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plotting" class="anchor"></a>Plotting</h3>
 <p>The tidy dataframe <code>estimates</code> can be easily used for plotting:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">plotdat &lt;-<span class="st"> </span>causal_fx2<span class="op">$</span>estimates[causal_fx2<span class="op">$</span>estimates<span class="op">$</span>estimand_type<span class="op">==</span><span class="st">"mu"</span>,]</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">plot</span>(<span class="dt">x =</span> plotdat<span class="op">$</span>alpha1, <span class="dt">y =</span> plotdat<span class="op">$</span>estimate, <span class="dt">main =</span> <span class="st">"Estimated Population Means"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">plotdat &lt;-<span class="st"> </span>causal_fx2<span class="op">$</span>estimates[causal_fx2<span class="op">$</span>estimates<span class="op">$</span>estimand_type<span class="op">==</span><span class="st">"mu"</span>,]
+<span class="kw">plot</span>(<span class="dt">x =</span> plotdat<span class="op">$</span>alpha1, <span class="dt">y =</span> plotdat<span class="op">$</span>estimate, <span class="dt">main =</span> <span class="st">"Estimated Population Means"</span>)</code></pre></div>
 <p><img src="estimate-policyFX_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
 </div>
 <div id="treatment-model" class="section level3">
 <h3 class="hasAnchor">
 <a href="#treatment-model" class="anchor"></a>Treatment model</h3>
 <p>As mentioned above, the treatment model is specified via the <code>formula</code> argument. For example, compare:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="co"># Returns the specified formula, coerced to a Formula object</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">causal_fx<span class="op">$</span>formula</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co"># causal_fx$model is a glmerMod S4 object</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">causal_fx<span class="op">$</span>model<span class="op">@</span>call</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; lme4::glmer(formula = Treatment ~ Age + Distance + (1 | Cluster_ID), </span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt;     data = data, family = stats::binomial, nAGQ = nAGQ)</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">lme4<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lme4/topics/getME">getME</a></span>(causal_fx<span class="op">$</span>model, <span class="kw">c</span>(<span class="st">"beta"</span>, <span class="st">"theta"</span>))</a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; $beta</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; [1] -1.44608710 -0.00850977  0.26096895</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; $theta</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; Cluster_ID.(Intercept) </span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt;               1.180325</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Returns the specified formula, coerced to a Formula object</span>
+causal_fx<span class="op">$</span>formula
+<span class="co">#&gt; Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID</span>
+<span class="co"># causal_fx$model is a glmerMod S4 object</span>
+causal_fx<span class="op">$</span>model<span class="op">@</span>call
+<span class="co">#&gt; lme4::glmer(formula = Treatment ~ Age + Distance + (1 | Cluster_ID), </span>
+<span class="co">#&gt;     data = data, family = stats::binomial, nAGQ = nAGQ)</span>
+lme4<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lme4/topics/getME">getME</a></span>(causal_fx<span class="op">$</span>model, <span class="kw">c</span>(<span class="st">"beta"</span>, <span class="st">"theta"</span>))
+<span class="co">#&gt; $beta</span>
+<span class="co">#&gt; [1] -1.446087049 -0.008509771  0.260968952</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $theta</span>
+<span class="co">#&gt; Cluster_ID.(Intercept) </span>
+<span class="co">#&gt;               1.180325</span></code></pre></div>
 </div>
 </div>
   </div>

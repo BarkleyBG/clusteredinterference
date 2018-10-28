@@ -86,12 +86,13 @@
 
     
     
+<!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <div id="about-the-clusteredinterference-package" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#about-the-clusteredinterference-package" class="anchor"></a>About the ‘clusteredinterference’ package</h1></div>
-<p>This package implements the estimators proposed in <a href="https://arxiv.org/abs/1711.04834">Barkley et al. (2017), <em>Causal Inference from Observational Studies with Clustered Interference</em></a> for estimating the causal effects of different treatment policies in the presence of partial or clustered interference.</p>
+<p>This package implements the estimators proposed in <a href="https://arxiv.org/abs/1711.04834">Barkley et al. (2017), <em>Causal Inference from Observational Studies with Clustered Interference</em></a> for estimating the causal effects of different treatment policies in the presence of partial or clustered interference. The package is available <a href="https://cran.r-project.org/web/packages/clusteredinterference/index.html">on CRAN</a> with a <a href="https://barkleybg.github.io/clusteredinterference/">companion website</a></p>
 <div id="what-is-clustered-interference" class="section level2">
 <h2 class="hasAnchor">
 <a href="#what-is-clustered-interference" class="anchor"></a>What is clustered interference?</h2>
@@ -125,115 +126,115 @@
 <div id="install-the-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#install-the-package" class="anchor"></a>Install the package</h2>
-<p>This package is now on CRAN!</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.package</span>(<span class="st">"clusteredinterference"</span>)</a></code></pre></div>
+<p>This package is now <a href="https://cran.r-project.org/web/packages/clusteredinterference/index.html">on CRAN</a>!</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"clusteredinterference"</span>)</code></pre></div>
 <p>Or, visit the <a href="https://github.com/BarkleyBG/clusteredinterference">GitHub repo:</a></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># devtools::install_github("BarkleyBG/clusteredinterference")</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># devtools::install_github("BarkleyBG/clusteredinterference")</span></code></pre></div>
 </div>
 <div id="load-this-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#load-this-package" class="anchor"></a>Load this package</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">library</span>(clusteredinterference)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(clusteredinterference)</code></pre></div>
 </div>
 <div id="a-quick-data-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-quick-data-example" class="anchor"></a>A quick data example</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">data</span>(<span class="st">"toy_data"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">head</span>(toy_data)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt;   Outcome Treatment Cluster_ID      Age Distance</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; 1       1         0          1 37.62826 6.485258</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; 2       0         1          1 36.61508 6.928957</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 3       1         1          1 31.74776 6.659470</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 4       1         0          2 34.79259 8.138802</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 5       0         0          2 48.05607 7.736209</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 6       0         0          2 42.21215 8.023865</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(<span class="st">"toy_data"</span>)
+<span class="kw">head</span>(toy_data)
+<span class="co">#&gt;   Outcome Treatment Cluster_ID      Age Distance</span>
+<span class="co">#&gt; 1       1         0          1 37.62826 6.485258</span>
+<span class="co">#&gt; 2       0         1          1 36.61508 6.928957</span>
+<span class="co">#&gt; 3       1         1          1 31.74776 6.659470</span>
+<span class="co">#&gt; 4       1         0          2 34.79259 8.138802</span>
+<span class="co">#&gt; 5       0         0          2 48.05607 7.736209</span>
+<span class="co">#&gt; 6       0         0          2 42.21215 8.023865</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
 <p>Estimation is carried out with one function:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">set.seed</span>(<span class="dv">1113</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">causal_fx &lt;-<span class="st"> </span><span class="kw"><a href="reference/policyFX.html">policyFX</a></span>(</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">  <span class="dt">data =</span> toy_data,</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">  <span class="dt">formula =</span> Outcome <span class="op">|</span><span class="st"> </span>Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID) <span class="op">|</span><span class="st"> </span>Cluster_ID,</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  <span class="dt">alphas =</span> <span class="kw">c</span>(.<span class="dv">15</span>, <span class="fl">.25</span>), </a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">  <span class="dt">k_samps =</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1113</span>)
+causal_fx &lt;-<span class="st"> </span><span class="kw"><a href="reference/policyFX.html">policyFX</a></span>(
+  <span class="dt">data =</span> toy_data,
+  <span class="dt">formula =</span> Outcome <span class="op">|</span><span class="st"> </span>Treatment <span class="op">~</span><span class="st"> </span>Age <span class="op">+</span><span class="st"> </span>Distance <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>Cluster_ID) <span class="op">|</span><span class="st"> </span>Cluster_ID,
+  <span class="dt">alphas =</span> <span class="kw">c</span>(.<span class="dv">15</span>, .<span class="dv">25</span>), 
+  <span class="dt">k_samps =</span> <span class="dv">1</span>
+)</code></pre></div>
 <p>The estimates of causal estimands are printed in a tidy dataframe:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">causal_fx</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; ------------- causal estimates --------------</span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;       estimand estimate     se     LCI    UCI</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt;       mu(0.15)   0.6985 0.0893  0.5234 0.8736</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt;       mu(0.25)   0.6664 0.0702  0.5287 0.8041</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt;      mu0(0.15)   0.7157 0.0917  0.5360 0.8954</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;      mu0(0.25)   0.6869 0.0775  0.5350 0.8388</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt;      mu1(0.15)   0.1619 0.0429  0.0779 0.2460</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt;      mu1(0.25)   0.2440 0.0536  0.1389 0.3491</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;  OE(0.25,0.15)  -0.0321 0.0275 -0.0861 0.0219</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt;  OE(0.15,0.25)   0.0321 0.0275 -0.0219 0.0861</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt;           ... and 4 more rows ... </span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; ---------------------------------------------</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx
+<span class="co">#&gt; ------------- causal estimates --------------</span>
+<span class="co">#&gt;       estimand estimate     se     LCI    UCI</span>
+<span class="co">#&gt;       mu(0.15)   0.6985 0.0893  0.5234 0.8736</span>
+<span class="co">#&gt;       mu(0.25)   0.6664 0.0702  0.5287 0.8041</span>
+<span class="co">#&gt;      mu0(0.15)   0.7157 0.0917  0.5360 0.8954</span>
+<span class="co">#&gt;      mu0(0.25)   0.6869 0.0775  0.5350 0.8388</span>
+<span class="co">#&gt;      mu1(0.15)   0.1619 0.0429  0.0779 0.2460</span>
+<span class="co">#&gt;      mu1(0.25)   0.2440 0.0536  0.1389 0.3491</span>
+<span class="co">#&gt;  OE(0.25,0.15)  -0.0321 0.0275 -0.0861 0.0219</span>
+<span class="co">#&gt;  OE(0.15,0.25)   0.0321 0.0275 -0.0219 0.0861</span>
+<span class="co">#&gt;           ... and 4 more rows ... </span>
+<span class="co">#&gt; ---------------------------------------------</span></code></pre></div>
 <p>Use <code>summary()</code> for a little more information:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">summary</span>(causal_fx)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; ------------- causal estimates --------------</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;       estimand estimate     se     LCI    UCI</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;       mu(0.15)   0.6985 0.0893  0.5234 0.8736</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;       mu(0.25)   0.6664 0.0702  0.5287 0.8041</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt;      mu0(0.15)   0.7157 0.0917  0.5360 0.8954</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt;      mu0(0.25)   0.6869 0.0775  0.5350 0.8388</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt;      mu1(0.15)   0.1619 0.0429  0.0779 0.2460</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt;      mu1(0.25)   0.2440 0.0536  0.1389 0.3491</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt;  OE(0.25,0.15)  -0.0321 0.0275 -0.0861 0.0219</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt;  OE(0.15,0.25)   0.0321 0.0275 -0.0219 0.0861</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt;           ... and 4 more rows ... </span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; -------------- treatment model -------------</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; Generalized linear mixed model fit by maximum likelihood (Adaptive</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt;   Gauss-Hermite Quadrature, nAGQ = 2) [glmerMod]</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt;  Family: binomial  ( logit )</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; Formula: Treatment ~ Age + Distance + (1 | Cluster_ID)</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt;    Data: data</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; 137.0345 147.3743 -64.5172 129.0345       94 </span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; Random effects:</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt;  Groups     Name        Std.Dev.</span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt;  Cluster_ID (Intercept) 1.18    </span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; Number of obs: 98, groups:  Cluster_ID, 30</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="co">#&gt; Fixed Effects:</span></a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt; (Intercept)          Age     Distance  </span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt;    -1.44609     -0.00851      0.26097  </span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt; ------------- propensity scores -------------</span></a>
-<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt;      1      2      3      4      5      6      7      8      9     10 </span></a>
-<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt;  0.105  0.162  0.086  0.102  0.167  0.045  0.244 0.0934 0.0765  0.197 </span></a>
-<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt;     11     12     13     14     15     16     17     18     19     20 </span></a>
-<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt; 0.0653  0.281  0.104  0.365 0.0867  0.198  0.207  0.106 0.0847  0.134 </span></a>
-<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="co">#&gt;     21     22     23     24     25     26     27     28     29     30 </span></a>
-<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt;  0.103  0.111  0.105  0.302 0.0434 0.0943 0.0443 0.0512   0.13  0.263 </span></a>
-<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="co">#&gt; ---------------------------------------------</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(causal_fx)
+<span class="co">#&gt; ------------- causal estimates --------------</span>
+<span class="co">#&gt;       estimand estimate     se     LCI    UCI</span>
+<span class="co">#&gt;       mu(0.15)   0.6985 0.0893  0.5234 0.8736</span>
+<span class="co">#&gt;       mu(0.25)   0.6664 0.0702  0.5287 0.8041</span>
+<span class="co">#&gt;      mu0(0.15)   0.7157 0.0917  0.5360 0.8954</span>
+<span class="co">#&gt;      mu0(0.25)   0.6869 0.0775  0.5350 0.8388</span>
+<span class="co">#&gt;      mu1(0.15)   0.1619 0.0429  0.0779 0.2460</span>
+<span class="co">#&gt;      mu1(0.25)   0.2440 0.0536  0.1389 0.3491</span>
+<span class="co">#&gt;  OE(0.25,0.15)  -0.0321 0.0275 -0.0861 0.0219</span>
+<span class="co">#&gt;  OE(0.15,0.25)   0.0321 0.0275 -0.0219 0.0861</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;           ... and 4 more rows ... </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -------------- treatment model -------------</span>
+<span class="co">#&gt; Generalized linear mixed model fit by maximum likelihood (Adaptive</span>
+<span class="co">#&gt;   Gauss-Hermite Quadrature, nAGQ = 2) [glmerMod]</span>
+<span class="co">#&gt;  Family: binomial  ( logit )</span>
+<span class="co">#&gt; Formula: Treatment ~ Age + Distance + (1 | Cluster_ID)</span>
+<span class="co">#&gt;    Data: data</span>
+<span class="co">#&gt;      AIC      BIC   logLik deviance df.resid </span>
+<span class="co">#&gt; 137.0345 147.3743 -64.5172 129.0345       94 </span>
+<span class="co">#&gt; Random effects:</span>
+<span class="co">#&gt;  Groups     Name        Std.Dev.</span>
+<span class="co">#&gt;  Cluster_ID (Intercept) 1.18    </span>
+<span class="co">#&gt; Number of obs: 98, groups:  Cluster_ID, 30</span>
+<span class="co">#&gt; Fixed Effects:</span>
+<span class="co">#&gt; (Intercept)          Age     Distance  </span>
+<span class="co">#&gt;    -1.44609     -0.00851      0.26097  </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ------------- propensity scores -------------</span>
+<span class="co">#&gt;      1      2      3      4      5      6      7      8      9     10 </span>
+<span class="co">#&gt;  0.105  0.162  0.086  0.102  0.167  0.045  0.244 0.0934 0.0765  0.197 </span>
+<span class="co">#&gt;     11     12     13     14     15     16     17     18     19     20 </span>
+<span class="co">#&gt; 0.0653  0.281  0.104  0.365 0.0867  0.198  0.207  0.106 0.0847  0.134 </span>
+<span class="co">#&gt;     21     22     23     24     25     26     27     28     29     30 </span>
+<span class="co">#&gt;  0.103  0.111  0.105  0.302 0.0434 0.0943 0.0443 0.0512   0.13  0.263 </span>
+<span class="co">#&gt; ---------------------------------------------</span></code></pre></div>
 <p>Note that <code>Treatment ~ Age + Distance + (1 | Cluster_ID)</code> in the the middle of the <code>formula</code> argument is sent to <code><a href="http://www.rdocumentation.org/packages/lme4/topics/glmer">lme4::glmer()</a></code> to specify the form of the (logit-link binomial) treatment model.</p>
 <p>The <code><a href="reference/policyFX.html">policyFX()</a></code> output list includes an element, <code>formula</code>, for the <code>Formula</code> object:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">causal_fx<span class="op">$</span>formula</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx<span class="op">$</span>formula
+<span class="co">#&gt; Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID</span></code></pre></div>
 <p>The output list also includes an element, <code>model</code>, which is the fitted <code>glmerMod</code> S4 model object. Here we can see that the middle of <code>formula</code> was passed into the <code>glmer()</code> logit-link binomial mixed model:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">causal_fx<span class="op">$</span>model<span class="op">@</span>call</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; lme4::glmer(formula = Treatment ~ Age + Distance + (1 | Cluster_ID), </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;     data = data, family = stats::binomial, nAGQ = nAGQ)</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">causal_fx<span class="op">$</span>model<span class="op">@</span>call
+<span class="co">#&gt; lme4::glmer(formula = Treatment ~ Age + Distance + (1 | Cluster_ID), </span>
+<span class="co">#&gt;     data = data, family = stats::binomial, nAGQ = nAGQ)</span></code></pre></div>
 <p>The fitted model estimates three fixed effects (intercept, a term for <code>Age</code> and a term for <code>Distance</code>) and one random effect (for <code>Cluster_ID</code>):</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">lme4<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lme4/topics/getME">getME</a></span>(causal_fx<span class="op">$</span>model, <span class="kw">c</span>(<span class="st">"beta"</span>, <span class="st">"theta"</span>))</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; $beta</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [1] -1.44608710 -0.00850977  0.26096895</span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; $theta</span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; Cluster_ID.(Intercept) </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;               1.180325</span></a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/lme4/topics/getME">getME</a></span>(causal_fx<span class="op">$</span>model, <span class="kw">c</span>(<span class="st">"beta"</span>, <span class="st">"theta"</span>))
+<span class="co">#&gt; $beta</span>
+<span class="co">#&gt; [1] -1.446087049 -0.008509771  0.260968952</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $theta</span>
+<span class="co">#&gt; Cluster_ID.(Intercept) </span>
+<span class="co">#&gt;               1.180325</span></code></pre></div>
 </div>
 <div id="vignette" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignette" class="anchor"></a>Vignette</h2>
 <p>The vignette provides more information on the formal arguments:</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">vignette</span>(<span class="st">"estimate-policyFX"</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">vignette</span>(<span class="st">"estimate-policyFX"</span>)</code></pre></div>
 </div>
 </div>
 <div id="news-and-version-history" class="section level1">
