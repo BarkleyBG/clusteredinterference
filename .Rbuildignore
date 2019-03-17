@@ -1,7 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
+^README\.md$
 ^README-.*\.png$
+^README\.html$
 ^CONDUCT\.md$
 ^scratch$
 ^\.travis\.yml$
@@ -9,4 +11,3 @@
 ^cran-comments\.md$
 ^_pkgdown\.yml$
 ^docs$
-^README\.html$

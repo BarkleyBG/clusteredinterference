@@ -5,6 +5,7 @@ context('Estimating variance for target parameters')
 load(file = quickLookup("test_variance_target_mu.Rdata"))
 
 target_args$RZC <- NULL
+suppressWarnings(RNGversion("3.5.0")) ## For backwards compatibility
 set.seed(101010)
 AB_target_list_mu <- do.call(calcTargetBreadMeat, args = target_args)
 

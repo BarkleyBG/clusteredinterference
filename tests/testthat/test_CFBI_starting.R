@@ -3,6 +3,7 @@ context('Prepare CFBI solver')
 
 load(file = quickLookup("test_CFBI_starting.Rdata"))
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(101010)
 
 starting_dfm <- getStartingCFBI(

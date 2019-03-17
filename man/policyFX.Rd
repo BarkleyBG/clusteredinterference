@@ -89,7 +89,7 @@ These estimators are based on inverse probability-weighting by the
 }
 \examples{
 \dontrun{
-data("toy_data", "clusteredinterference")
+toy_data <- clusteredinterference::toy_data
 causal_fx <- policyFX(
   data = toy_data,
   formula = Outcome | Treatment ~ Age + Distance + (1 | Cluster_ID) | Cluster_ID,

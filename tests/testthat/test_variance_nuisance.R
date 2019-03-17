@@ -3,6 +3,7 @@ context('Estimating variance of nuisance parameters')
 
 load(file=quickLookup("test_variance_nuisance.Rdata"))
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(101010)
 
 AB_nuisance_list <- do.call(calcNuisanceBreadMeat,nuisance_args)

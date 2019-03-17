@@ -5,6 +5,7 @@ context('Integration test')
 filename <- quickLookup("test_integration.Rdata")
 load(file=filename) ## loads est_args and baseline_effects
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(101010)
 pfx <- do.call( policyFX, args = est_args )
 

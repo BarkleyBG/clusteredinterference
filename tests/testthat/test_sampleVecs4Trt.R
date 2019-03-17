@@ -3,6 +3,7 @@ context('Sampling vectors for valuation for MCFP/omegas')
 
 load(file = quickLookup("test_sampleVecs4Trt.Rdata"))
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(309)
 
 vec_dfm_no_alphas <- sampleVecs4Trt(

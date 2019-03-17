@@ -3,6 +3,7 @@ context('Estimate CFBI and MCFP values')
 
 load(file = quickLookup("test_CFBI_MCFP.Rdata"))
 
+suppressWarnings(RNGversion("3.5.0"))
 set.seed(101010)
 
 CFBI_MCFP_list <- do.call(what=estimateNuisance,args=CFBI_args)
